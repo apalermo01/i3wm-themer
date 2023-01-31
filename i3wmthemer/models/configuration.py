@@ -39,7 +39,6 @@ class Configuration:
         self.nitrogen_config = nitrogen_config
         # Wallpaper
         self.wp_path = wp_path
-
     def refresh_all(self, wallpaper):
         """
         Function that refreshes the configuration.
@@ -94,5 +93,8 @@ class ConfigurationLoader:
             exit(9)
 
         # Set each property.
-        return Configuration(configuration['i3-config'], configuration['polybar-config'], configuration['xresources'],
-                             configuration['nitrogen-config'], configuration['wallpaper-path'])
+        return Configuration(configuration['i3wm'],
+                             configuration['polybar'],
+                             configuration['xresources'],
+                             configuration['nitrogen'],
+                             configuration['wallpaper-path'])

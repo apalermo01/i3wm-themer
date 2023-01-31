@@ -35,23 +35,21 @@ class FileUtils:
         return os.path.isfile(path)
 
     @staticmethod
-    def load_theme_from_file(path):
+    def load_theme_from_file(theme_name):
         """
         JSon file loader.
 
         Loads the theme from the given JSON file and returns it.
 
-        :param path: json filepath.
+        :param theme_name: Name of theme to use.
         :return: the loaded theme.
         """
         file = ''
+        path = f"themes/{theme_name}/{theme_name}.json"
         if FileUtils.locate_file(path):
             logger.warning('Located the theme file.')
             with open(path) as theme_data:
-                if file.endswith("json"):
-                    file = json.load(theme_data)
-                else:
-                    file = yaml.safe_load(theme_data)
+                file = json.load(theme_data)
         else:
             logger.error('Failed to locate the theme file.')
             exit(9)
@@ -67,6 +65,7 @@ class FileUtils:
         :param pattern: pattern to filter.
         :param new_line: line to replace with.
         """
+        pattern_found = False
         fh, abs_path = mkstemp()
         with fdopen(fh, 'w') as new_file:
             with open(file) as old_file:
@@ -77,6 +76,7 @@ class FileUtils:
                         pl2 = new_line
                         pl2 = pl2.rstrip()
                         logger.warning('Replacing line: \'%s\' with \'%s\'', pl1, pl2)
+                        pattern_found = True
                         try:
                             new_file.write(new_line + '\n')
                         except IOError:
@@ -88,3 +88,4 @@ class FileUtils:
                             logger.error('Failed!')
         remove(file)
         move(abs_path, file)
+        return pattern_found
