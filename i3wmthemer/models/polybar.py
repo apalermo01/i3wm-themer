@@ -24,7 +24,7 @@ class PolybarTheme(AbstractTheme):
         if 'colors' not in self.polybar_theme:
             self.polybar_theme['colors'] = {}
         self.colors = self.polybar_theme['colors']
-        self.x_resources = json_file[XresourcesAttr.NAME.value]
+        self.x_resources = json_file['x_resources']
         self.init_colors()
 
     def init_colors(self):

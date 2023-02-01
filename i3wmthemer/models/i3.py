@@ -3,7 +3,7 @@ import logging
 from i3wmthemer.enumeration.attributes import I3Attr, XresourcesAttr
 from i3wmthemer.models.abstract_theme import AbstractTheme
 from i3wmthemer.utils.fileutils import FileUtils
-
+from textwrap import dedent
 logger = logging.getLogger(__name__)
 
 
@@ -26,6 +26,54 @@ class I3Theme(AbstractTheme):
         if 'terminal' not in self.i3theme:
             self.i3theme['terminal'] = 'gnome-terminal'
 
+
+
+    def load(self, configuration):
+        """Load settings into i3 config file.
+
+        :param configuration:
+        """
+        # load colors
+        self.write_colors(configuration)
+
+        if "font" in self.i3theme:
+            self.init_font(configuration)
+        self.set_terminal(configuration)
+        self.init_bindsyms(configuration)
+
+
+    def init_bindsyms(self, configuration):
+        """Add theme-specific bindsyms to i3 config.
+
+        :param configuration:
+        """
+
+        if 'bindsyms' not in self.i3theme:
+            return
+
+        for command in self.i3theme['bindsyms']:
+            match_found = FileUtils.replace_line(configuration.i3_config,
+                                         f"bindsym {command}",
+                                         f"bindsym {command} {self.i3theme['bindsyms'][command]}")
+            if not match_found:
+                cmd = f"bindsym {command} {self.i3theme['bindsyms'][command]}"
+                FileUtils.append_line(configuration.i3, cmd)
+
+    def init_font(self, configuration):
+        """Add font info to i3 config.
+
+        :param configuration:
+        """
+        text = f"font {self.i3theme['font']}\n"
+        FileUtils.append_line(configuration.i3, text)
+
+    def set_terminal(self, configuration):
+        """Set the terminal to run with $mod+Return.
+
+        :param configuration:
+        """
+        text = f"bindsym $mod+Return exec {self.i3theme['terminal']}\n"
+        FileUtils.append_line(configuration.i3, text)
 
     def init_colors(self):
         """Copy the color entries from the xresources part of the config to the colors for i3"""
@@ -78,77 +126,15 @@ class I3Theme(AbstractTheme):
             else:
                 self.placeholder = " ".join([self.x_resources[i] for i in placeholder_list])
 
-    def load(self, configuration):
-        """Load settings into i3 config file.
+    def write_colors(self, configuration):
+        color_entry = dedent(f"""
+        client.background {self.background} \n
+        client.focused {self.focused} \n
+        client.unfocused {self.unfocused} \n
+        client.focused_inactive {self.inactive} \n
+        client.urgent {self.urgent} \n
+        client.placeholder {self.placeholder} \n
+        """)
 
-        :param configuration:
-        """
-        # load colors
-        self.load_hex(configuration)
-
-        if "font" in self.i3theme:
-            self.init_font(configuration)
-        self.set_terminal(configuration)
-        self.init_bindsyms(configuration)
-
-
-    def init_bindsyms(self, configuration):
-        """Add theme-specific bindsyms to i3 config.
-
-        :param configuration:
-        """
-
-        if 'bindsyms' not in self.i3theme:
-            return
-
-        for command in self.i3theme['bindsyms']:
-            match_found = FileUtils.replace_line(configuration.i3_config,
-                                         f"bindsym {command}",
-                                         f"bindsym {command} {self.i3theme['bindsyms'][command]}")
-            if not match_found:
-                cmd = f"bindsym {command} {self.i3theme['bindsyms'][command]}"
-                with open(configuration.i3_config, "a") as f:
-                    f.write(cmd)
-
-    def init_font(self, configuration):
-        """Add font info to i3 config.
-
-        :param configuration:
-        """
-        with open(configuration.i3_config, "a") as f:
-            f.write(f"font {self.i3theme['font']}\n")
-
-    def set_terminal(self, configuration):
-        """Set the terminal to run with $mod+Return.
-
-        :param configuration:
-        """
-
-        with open(configuration.i3_config, "a") as f:
-            f.write(f"bindsym $mod+Return exec {self.i3theme['terminal']}\n")
-
-    def load_hex(self, configuration):
-        """
-        Function that loads the i3 theme.
-
-        :param configuration: the configuration.
-        """
-
-        logger.warning('Applying changes to i3 configuration')
-
-        if FileUtils.locate_file(configuration.i3_config):
-            logger.warning('Located the i3 configuration file')
-
-            logger.warning('Found the i3wm info in the JSON file')
-            FileUtils.replace_line(configuration.i3_config, 'client.background', 'client.background ' + self.background)
-            FileUtils.replace_line(configuration.i3_config, 'client.focused ', 'client.focused ' + self.focused)
-            FileUtils.replace_line(configuration.i3_config, 'client.unfocused', 'client.unfocused ' + self.unfocused)
-            FileUtils.replace_line(configuration.i3_config, 'client.focused_inactive',
-                                   'client.focused_inactive ' + self.inactive)
-            FileUtils.replace_line(configuration.i3_config, 'client.urgent',
-                                   'client.urgent ' + self.urgent)
-            FileUtils.replace_line(configuration.i3_config, 'client.placeholder',
-                                   'client.placeholder ' + self.placeholder)
-        else:
-            logger.warning('Failed to locate your i3 configuration file')
+        FileUtils.append_line(configuration.i3, color_entry)
 

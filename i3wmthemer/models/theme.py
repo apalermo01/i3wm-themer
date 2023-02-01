@@ -1,25 +1,32 @@
+from typing_extensions import dataclass_transform
 from i3wmthemer.models.abstract_theme import AbstractTheme
-from i3wmthemer.models.i3 import I3Theme
-from i3wmthemer.models.wallpaper import WallpaperTheme
-from i3wmthemer.models.polybar import PolybarTheme
-#from i3wmthemer.models.status import StatusbarTheme
-from i3wmthemer.models.xresources import XresourcesTheme
-from i3wmthemer.models.bashrc import BashTheme
-from i3wmthemer.models.vim import VimTheme
+from i3wmthemer import models
+# from i3wmthemer.models.i3 import I3Theme
+# from i3wmthemer.models.wallpaper import WallpaperTheme
+# from i3wmthemer.models.polybar import PolybarTheme
+# #from i3wmthemer.models.status import StatusbarTheme
+# from i3wmthemer.models.xresources import XresourcesTheme
+# from i3wmthemer.models.bashrc import BashTheme
+# from i3wmthemer.models.vim import VimTheme
 import pywal
 import os
 import yaml
 
+
 theme_registry = {
-        'bash': BashTheme,
-        'vimrc': VimTheme,
-        }
+        'i3': models.i3.I3Theme,
+        'wallpaper': models.wallpaper.WallpaperTheme,
+        'polybar': models.polybar.PolybarTheme,
+        'x_resources': models.xresources.XresourcesTheme,
+        'bash': models.bashrc.BashTheme,
+        'vim': models.vim.VimTheme,
+}
 
 class Theme(AbstractTheme):
     """
     Class that contains the loaded theme.
     """
-    x_resources, i3_theme, polybar_theme, nitrogen_theme = None, None, None, None
+    required_modules = ['bash', 'wallpaper', 'vim', 'i3']
 
     def __init__(self, file):
         """
@@ -27,24 +34,19 @@ class Theme(AbstractTheme):
 
         :param file: the JSON file to load from.
         """
+        self.init_funcs = {
+                'bash': self._init_bash,
+                'wallpaper': self._init_wallpaper,
+                'vim': self._init_vim,
+                'i3': self._init_i3,
+        }
         file = self.init_defaults(file)
         file = self.parse_settings(file)
         config_path = file['settings']['config']
         with open(config_path, "r") as f:
             self.config = yaml.safe_load(f)
 
-        self.themes = {
-                'xresources': XresourcesTheme(file),
-                'i3wm_theme': I3Theme(file),
-                'polybar_theme': PolybarTheme(file),
-                'wallpaper_theme': WallpaperTheme(file)
-        }
-
-        if 'bash' in file:
-            self.themes['bash'] = BashTheme(file)
-
-        if 'vimrc' in file:
-            self.themes['vimrc'] = VimTheme(file)
+        self.themes = {t: theme_registry[t] for t in file if t != 'settings'}
 
     def load(self, configuration, theme_name):
         """
@@ -52,11 +54,7 @@ class Theme(AbstractTheme):
 
         :param configuration: the configuration.
         """
-       # self.x_resources.load(configuration)
-       # self.i3_theme.load(configuration)
-       # self.polybar_theme.load(configuration)
-       # self.wallpaper_theme.load(configuration)
-        #self.nitrogen_theme.load(configuration)
+
         for theme in self.themes:
             self.themes[theme].load(configuration)
             self.extend(theme, configuration, theme_name)
@@ -88,7 +86,7 @@ class Theme(AbstractTheme):
                 f_config.write(extend_content)
 
 
-    def init_defaults(self, file: dict):
+    def init_defaults(self, file: Dict) -> Dict:
         """Initialize default settings that should be present in every theme.
         initializes default settings for general settings, bash, wallpaper, and vim
 
@@ -102,6 +100,8 @@ class Theme(AbstractTheme):
                     'install': './defaults'
                     }
 
+    @staticmethod
+    def _init_bash(file: Dict) -> Dict:
         if 'bash' not in file:
             file['bash'] = {
                     'pywal_colors': True,
@@ -109,21 +109,35 @@ class Theme(AbstractTheme):
                     'neofetch': True,
                     'extra_lines': []
             }
-
+        return file
+    @staticmethod
+    def _init_wallpaper(file: Dict) -> Dict:
+        if 'wallpaper' not in file:
+            raise ValueError("Config needs a wallpaper")
         if isinstance(file['wallpaper'], str):
             name = file['wallpaper']
             file['wallpaper'] = {
                     'method': 'feh',
                     'name': name
                     }
+        return file
 
-        if 'vimrc' not in file:
-            file['vimrc'] = {
+    @staticmethod
+    def _init_vim(file: Dict) -> Dict:
+        if 'vim' not in file:
+            file['vim'] = {
                     'colorscheme': 'gruvbox'
             }
-
         if 'extra_lines' not in file['vimrc']:
-            file['vimrc']['extra_lines'] = ['set bg=dark']
+            file['vim']['extra_lines'] = ['set bg=dark']
+        return file
+
+
+    @staticmethod
+    def _init_i3(file: Dict) -> Dict:
+        if 'i3' not in file:
+            raise ValueError("Config requires i3!")
+
         return file
 
     def parse_settings(self, file):

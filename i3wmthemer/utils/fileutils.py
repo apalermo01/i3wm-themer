@@ -89,3 +89,15 @@ class FileUtils:
         remove(file)
         move(abs_path, file)
         return pattern_found
+
+    @staticmethod
+    def append_line(file: str, text: str):
+        """append_line.
+
+        :param file:
+        :type file: str
+        :param text:
+        :type text: str
+        """
+        with open(file, "a") as f:
+            f.write(text)
