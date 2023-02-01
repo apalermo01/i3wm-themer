@@ -31,7 +31,13 @@
 		"modules-left": "xworkspaces",
 		"modules-center": "",
 		"modules-right": "pulseaudio memory cpu date",
-		"colors": {}
+		"colors": {	
+		},
+		"modules": {
+			"bar/main": {
+				"border-size": "0pt"
+			}
+		}
 	},
 	
 	"wallpaper": {

@@ -32,6 +32,18 @@ class PolybarTheme(AbstractTheme):
         for color in self.colors:
             self.colors[color] = self.parse_color_line(self.colors[color], self.xresources)
 
+    def init_modules(self, config):
+        pass
+
+        # TODO: parse the 'modules' section of the config for custom settings in
+        # in polybar config
+        if 'modules' not in self.polybar_theme:
+            return config
+        for m in self.polybar_theme['modules']:
+            if m not in config:
+                config[m] = self.polybar_theme['modules'][m]
+            else:
+                config[m].update(self.polybar_theme['modules'][m])
     def load(self, configuration):
         """
         Function that loads the Polybar theme.
@@ -65,6 +77,7 @@ class PolybarTheme(AbstractTheme):
             config['bar/main']['modules-left'] = self.polybar_theme['modules-left']
             config['bar/main']['modules-center'] = self.polybar_theme['modules-center']
             config['bar/main']['modules-right'] = self.polybar_theme['modules-right']
+            config = self.init_modules(config)
             with open(configuration.polybar_config, "w") as f:
                 config.write(f)
         else:
