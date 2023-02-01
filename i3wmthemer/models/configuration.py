@@ -30,7 +30,7 @@ class Configuration:
         :param wp_path: wallpaper filepath.
         """
         # i3 config
-        self.i3_config = i3_config
+        self.i3 = i3_config
         # Polybar config
         self.polybar_config = polybar_config
         # xResources
@@ -93,7 +93,7 @@ class ConfigurationLoader:
             exit(9)
 
         # Set each property.
-        return Configuration(configuration['i3wm'],
+        return Configuration(configuration['i3'],
                              configuration['polybar'],
                              configuration['xresources'],
                              configuration['nitrogen'],

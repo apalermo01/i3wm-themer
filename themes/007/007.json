@@ -24,7 +24,7 @@
     "rofi.color-active": "#828282, #c6c6c6, #8abeb7, #c6c6c6, #78824B",
     "rofi.color-urgent": "#828282, #c6c6c6, #8abeb7, #c6c6c6, #78824B"
   },
-  "i3wm": {
+  "i3": {
     "client.background": "#1f1f1f",
     "client.focused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
     "client.unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
@@ -63,7 +63,7 @@
   },
   "wallpaper": "007.png",
 
-  "vimrc": {
+  "vim": {
 	  "colors": "nokto.vim",
 	  "colorscheme": "nokto"
   }

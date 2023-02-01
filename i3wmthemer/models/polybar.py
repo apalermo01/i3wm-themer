@@ -24,13 +24,13 @@ class PolybarTheme(AbstractTheme):
         if 'colors' not in self.polybar_theme:
             self.polybar_theme['colors'] = {}
         self.colors = self.polybar_theme['colors']
-        self.x_resources = json_file['x_resources']
+        self.xresources = json_file['xresources']
         self.init_colors()
 
     def init_colors(self):
         """Parse colors for every entry"""
         for color in self.colors:
-            self.colors[color] = self.parse_color_line(self.colors[color], self.x_resources)
+            self.colors[color] = self.parse_color_line(self.colors[color], self.xresources)
 
     def load(self, configuration):
         """

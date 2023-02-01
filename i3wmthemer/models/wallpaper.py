@@ -32,7 +32,7 @@ class FehTheme(AbstractTheme):
         if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
             os.makedirs(os.path.expanduser("~/Picutres/wallpapers/"))
         logger.warning("Loading wallpaper")
-        with open(configuration.i3_config, "a") as f:
+        with open(configuration.i3, "a") as f:
             f.write(f"\n exec_always feh --bg-fill $HOME/Pictures/wallpapers/{self.wallpaper}")
 
         shutil.copy2(src=f"wallpapers/{self.wallpaper}",
@@ -72,7 +72,7 @@ class NitrogenTheme(AbstractTheme):
                 logger.warning('Loaded the wallpaper successfully!!')
 
                 # add statement in i3 config to run nitrogen
-                with open(configuration.i3_config, "a") as f:
+                with open(configuration.i3, "a") as f:
                     f.write("exec --no-startup-id nitrogen --restore")
                 return True
 

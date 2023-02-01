@@ -1,25 +1,24 @@
 from typing_extensions import dataclass_transform
 from i3wmthemer.models.abstract_theme import AbstractTheme
-from i3wmthemer import models
-# from i3wmthemer.models.i3 import I3Theme
-# from i3wmthemer.models.wallpaper import WallpaperTheme
-# from i3wmthemer.models.polybar import PolybarTheme
-# #from i3wmthemer.models.status import StatusbarTheme
-# from i3wmthemer.models.xresources import XresourcesTheme
-# from i3wmthemer.models.bashrc import BashTheme
-# from i3wmthemer.models.vim import VimTheme
+from i3wmthemer.models.i3 import I3Theme
+from i3wmthemer.models.wallpaper import WallpaperTheme
+from i3wmthemer.models.polybar import PolybarTheme
+#from i3wmthemer.models.status import StatusbarTheme
+from i3wmthemer.models.xresources import XresourcesTheme
+from i3wmthemer.models.bash import BashTheme
+from i3wmthemer.models.vim import VimTheme
 import pywal
 import os
 import yaml
-
+from typing import Dict
 
 theme_registry = {
-        'i3': models.i3.I3Theme,
-        'wallpaper': models.wallpaper.WallpaperTheme,
-        'polybar': models.polybar.PolybarTheme,
-        'x_resources': models.xresources.XresourcesTheme,
-        'bash': models.bashrc.BashTheme,
-        'vim': models.vim.VimTheme,
+        'i3': I3Theme,
+        'wallpaper': WallpaperTheme,
+        'polybar': PolybarTheme,
+        'xresources': XresourcesTheme,
+        'bash': BashTheme,
+        'vim': VimTheme,
 }
 
 class Theme(AbstractTheme):
@@ -46,7 +45,7 @@ class Theme(AbstractTheme):
         with open(config_path, "r") as f:
             self.config = yaml.safe_load(f)
 
-        self.themes = {t: theme_registry[t] for t in file if t != 'settings'}
+        self.themes = {t: theme_registry[t](file) for t in file if t != 'settings'}
 
     def load(self, configuration, theme_name):
         """
@@ -56,9 +55,10 @@ class Theme(AbstractTheme):
         """
 
         for theme in self.themes:
+            print("LOADING THEME ", theme)
             self.themes[theme].load(configuration)
             self.extend(theme, configuration, theme_name)
-        configuration.refresh_all(self.themes['wallpaper_theme'].wallpaper)
+        configuration.refresh_all(self.themes['wallpaper'].wallpaper)
 
     def extend(self, theme: str, configuration, theme_name: str):
         """If a file ending with the extension .extend lives in the theme folder,
@@ -99,6 +99,9 @@ class Theme(AbstractTheme):
                     'config': 'config.yaml',
                     'install': './defaults'
                     }
+        for module in self.required_modules:
+            file = self.init_funcs[module](file)
+        return file
 
     @staticmethod
     def _init_bash(file: Dict) -> Dict:
@@ -128,7 +131,7 @@ class Theme(AbstractTheme):
             file['vim'] = {
                     'colorscheme': 'gruvbox'
             }
-        if 'extra_lines' not in file['vimrc']:
+        if 'extra_lines' not in file['vim']:
             file['vim']['extra_lines'] = ['set bg=dark']
         return file
 

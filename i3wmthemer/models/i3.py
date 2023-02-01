@@ -17,9 +17,9 @@ class I3Theme(AbstractTheme):
 
         :param json_file: JSON file that contains the theme data.
         """
-        self.i3theme = json_file[I3Attr.NAME.value]
+        self.i3theme = json_file['i3']
 
-        self.x_resources = json_file[XresourcesAttr.NAME.value]
+        self.x_resources = json_file['xresources']
         self.init_colors()
 
         ### default terminal
