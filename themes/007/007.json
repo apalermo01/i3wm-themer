@@ -35,7 +35,7 @@
   "polybar": {
     "modules-left": "xworkspaces",
     "modules-center": "",
-    "modules-right": "date powermenu",
+    "modules-right": "pulseaudio date powermenu",
 	"colors": {
         "background": "#1f1f1f",
         "foreground": "#c6c6c6",
