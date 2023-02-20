@@ -26,7 +26,7 @@
   },
   "i3wm": {
     "client.background": "#1f1f1f",
-    "client.focused": "#c6c6c6 #1f1f1f #f0c674 #8abeb7 #f0c647",
+    "client.focused": "#c6c6c6 #1f1f1f #f0c674 #ff0000 #f0c647", 
     "client.unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
     "client.focused_inactive": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
     "client.urgent": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",

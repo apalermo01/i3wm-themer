@@ -13,8 +13,9 @@
 		"terminal": "gnome-terminal",
 		"colors": {
 			"background": ["background"],
-			"focused": ["foreground", "background", "foreground", "color12", "color12"],
-			"unfocused": ["foreground", "background", "foreground", "color4", "color4"],
+			"doc":     ["border",     "background", "text",   "indicator", "child_border"],
+			"focused": ["foreground", "background", "foreground", "color1", "color4"],
+			"unfocused": ["foreground", "background", "foreground", "color4", "background"],
 			"focused_inactive": ["foreground", "background", "foreground", "color4", "color4"],
 			"urgent": ["foreground", "background", "foreground", "color4", "color4"],
 			"placeholder": ["foreground", "background", "foreground", "color4", "color4"]
