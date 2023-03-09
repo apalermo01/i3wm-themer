@@ -1,0 +1,10 @@
+{
+	"settings": {
+		"use_pywal": false,
+		"config": "config.yaml",
+		"install": "./defaults/"
+	},
+	"xresources": {},
+	"i3wm": {},
+	"polybar": {}
+}

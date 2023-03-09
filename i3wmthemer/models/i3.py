@@ -120,7 +120,7 @@ class I3Theme(AbstractTheme):
                                          f"bindsym {command}",
                                          f"bindsym {command} {self.i3theme['bindsyms'][command]}")
             if not match_found:
-                cmd = f"bindsym {command} {self.i3theme['bindsyms'][command]}"
+                cmd = f"bindsym {command} {self.i3theme['bindsyms'][command]}\n"
                 with open(configuration.i3_config, "a") as f:
                     f.write(cmd)
 

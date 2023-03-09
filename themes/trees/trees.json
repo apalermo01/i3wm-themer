@@ -14,7 +14,7 @@
 		"colors": {
 			"background": ["background"],
 			"doc":     ["border",     "background", "text",   "indicator", "child_border"],
-			"focused": ["foreground", "background", "foreground", "color1", "color4"],
+			"focused": ["foreground", "background", "color4", "color1", "color4"],
 			"unfocused": ["foreground", "background", "foreground", "color4", "background"],
 			"focused_inactive": ["foreground", "background", "foreground", "color4", "color4"],
 			"urgent": ["foreground", "background", "foreground", "color4", "color4"],
@@ -22,8 +22,8 @@
 		},
 
 		"bindsyms": {
-			"$mod+Shift+space": "floating enable, border normal 10",
-			"$mod+Control+space": " floating disable, border none"
+			"$mod+Shift+space": "floating enable",
+			"$mod+Control+space": " floating disable"
 		}
     },
 
@@ -31,7 +31,7 @@
         "use_xresources": true,
         "modules-left": "xworkspaces",
         "modules-center": "",
-        "modules-right": "filesystem pulseaudio memory cpu date",
+        "modules-right": "filesystem pulseaudio date",
 		"colors": {
 			"background": "background",
 			"background-alt": "#373B41",

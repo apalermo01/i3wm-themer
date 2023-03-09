@@ -26,8 +26,8 @@
   },
   "i3wm": {
     "client.background": "#1f1f1f",
-    "client.focused": "#c6c6c6 #1f1f1f #f0c674 #ff0000 #f0c647", 
-    "client.unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
+    "client.focused": "#c6c6c6 #1f1f1f #8abeb7 #8abeb7 #8abee7", 
+    "client.unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #c6c6c6",
     "client.focused_inactive": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
     "client.urgent": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
     "client.placeholder": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7"
@@ -58,7 +58,7 @@
         "ramp-signal-foreground": "#1f1f1f",
 		"label-active-background": "#1f1f1f",
 		"label-active-foreground": "#828282",
-		"label-active-underline": "#8abeb7"
+		"label-active-underline": "8abee7"
 	}
   },
   "wallpaper": "007.png",
