@@ -6,5 +6,9 @@
 	},
 	"xresources": {},
 	"i3wm": {},
-	"polybar": {}
+	"wallpaper": {
+		"method": "feh",
+		"name": "tux.png"
+	}
 }
+
