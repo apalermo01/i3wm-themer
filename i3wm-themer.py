@@ -20,14 +20,6 @@ if __name__ == "__main__":
     parser.add_argument('-l', '--load', type=str, help='Load theme from JSON or YAML file')
     args = parser.parse_args()
 
-    # TODO :: Default
-    # if args.config is None:
-    #     exit(0)
-
-
-    #if args.backup is not None:
-    #    BackupUtils.backup_config(args.backup, configuration)
-    #    exit(0)
 
 
     if args.load is not None:
