@@ -20,3 +20,15 @@ def parse_colors(template: Dict,
     - define a template for colorscheme
         this will likely be similar to the xresources colors
     """
+
+    if config is None or config['color_mode'] == 'manual':
+        configure_manual_colors()
+
+    else:
+        config_pywal_colors()
+
+def configure_manual_colors(colors):
+    pass
+
+def configure_pywal_colors(colors, image_path):
+    pass
