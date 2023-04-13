@@ -1,0 +1,18 @@
+scoping out structural changes for themer
+
+Break out config settings into a series of modules:
+
+- colorscheme:
+	- generate this from pywal or manually specify hex codes
+	- one file is for the color pallet
+	- have a colors file for each module in the theme that maps to the pallet
+
+- keybindings
+	- keep a base file that contains all keybindings that need to be the same across all themes. It's unlikely that keybindings will be changing across themes, but if that's the case, then keep a section in the config for custom keybindings
+
+- status bar
+	- each available status bar will have a default config that everything can inherit from. each theme folder may have a template file that adds / changes settings in the base file
+
+- wallpaper
+	- each theme folder will have a wallpaper that's automatically installed
+ 

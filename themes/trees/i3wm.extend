@@ -6,4 +6,3 @@ exec_always picom --config ~/.config/picom.conf
 for_window [class="^.*"] border pixel 0
 exec bash ~/left_ext_monitor.sh
 
-
