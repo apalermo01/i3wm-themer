@@ -80,6 +80,7 @@ def parse_i3theme(base_path: str = "./defaults/i3wm.template",
         print("WARNING: font is already established in i3 config, ignoring for now")
 
     # bindsyms
+    # TODO: overwrite bindsyms through config
     if 'bindsyms' in configuration_data['i3']:
         with open("./tmp/i3.config", "a") as f:
             for command in configuration_data['i3']['bindsyms']:
