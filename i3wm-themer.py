@@ -14,7 +14,7 @@ from i3wmthemer.utils.backup import BackupUtils
 from i3wmthemer.utils.fileutils import FileUtils
 from i3wmthemer.utils.install import InstallationUtils
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description='i3wm-themer by Stavros Grigoriou (@unix121)')
     parser.add_argument('-b', '--backup', type=str, help='Backup files')
     parser.add_argument('-l', '--load', type=str, help='Load theme from JSON or YAML file')
@@ -37,3 +37,7 @@ if __name__ == "__main__":
         configuration = configLoader.load()
         theme.load(configuration, theme_name)
         exit(0)
+def test_main():
+
+if __name__ == "__main__":
+    test_main()
