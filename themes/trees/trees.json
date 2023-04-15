@@ -1,16 +1,10 @@
 {
-    "settings": {
-        "use_pywal": true,
-    	"config": "config.yaml",
-    	"install": "./defaults/"
-    },
 	"colors": {
 		"settings": {
 			"color_mode": "pywal"
 		}
 	},
 
-    "xresources": {},
 
     "i3": {
         "use_xresources": true,

@@ -31,13 +31,13 @@ def parse_colors(#template: Dict,
 
     if config is None or config['colors']['settings']['color_mode'] == 'pywal':
         wallpaper = config['wallpaper']
-        pallet = configure_pywal_colors(config['settings'], config['wallpaper'])
+        pallet = configure_pywal_colors(config['wallpaper'])
         config['colors']['pallet'] = pallet
 
     return config
 
 
-def configure_pywal_colors(settings, wallpaper_path):
+def configure_pywal_colors(wallpaper_path):
     subprocess.run(['wal', '-n', '-e', '-i', wallpaper_path], capture_output=False)
     colors_file = os.path.expanduser("~/.cache/wal/colors.json")
     with open(colors_file, "r") as f:
