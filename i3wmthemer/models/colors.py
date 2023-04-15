@@ -1,6 +1,8 @@
 import logging
 from typing import Union, Dict, List
 import subprocess
+import os
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +38,9 @@ def parse_colors(#template: Dict,
 
 
 def configure_pywal_colors(settings, wallpaper_path):
-    subprocess.run(['wal', '-n', '-e', '-i', wallpaper_path], capture_output=True)
-
-    with open("~/.cache/wal/colors.json", "r") as f:
+    subprocess.run(['wal', '-n', '-e', '-i', wallpaper_path], capture_output=False)
+    colors_file = os.path.expanduser("~/.cache/wal/colors.json")
+    with open(colors_file, "r") as f:
         pywal_colors = json.load(f)
 
     pallet = {}
