@@ -79,11 +79,9 @@ def parse_i3theme(base_path: str = "./defaults/i3wm.template",
     else:
         print("WARNING: font is already established in i3 config, ignoring for now")
 
-def add_configuration_data(configuration_data: Dict):
-    """
-    This function parses the json dict
-    """
-    pass
-
-
+    # bindsyms
+    if 'bindsyms' in configuration_data['i3']:
+        with open("./tmp/i3.config", "a") as f:
+            for command in configuration_data['i3']['bindsyms']:
+                f.write(f"bindsym {command} {configuration_data['i3']['bindsyms'][command]}")
 
