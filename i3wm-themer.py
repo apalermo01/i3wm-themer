@@ -5,39 +5,45 @@ i3-wm theme changing utility.
 
 Author  :   Stavros Grigoriou (@unix121), modified by Alex Palermo (@apalermo01)
 """
+from i3wmthemer.models.colors import parse_colors
+from i3wmthemer.models.i3 import parse_i3theme
+from i3wmthemer.models.polybar import parse_polybar
+import logging
+import sys
+import json
+import os
 
-import argparse
+logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
 
-from i3wmthemer.models.configuration import ConfigurationLoader
-from i3wmthemer.models.theme import Theme
-from i3wmthemer.utils.backup import BackupUtils
-from i3wmthemer.utils.fileutils import FileUtils
-from i3wmthemer.utils.install import InstallationUtils
+logger = logging.getLogger(__name__)
 
-def main():
-    parser = argparse.ArgumentParser(description='i3wm-themer by Stavros Grigoriou (@unix121)')
-    parser.add_argument('-b', '--backup', type=str, help='Backup files')
-    parser.add_argument('-l', '--load', type=str, help='Load theme from JSON or YAML file')
-    args = parser.parse_args()
+func_registry = {
+    'colors': {
+        'function': parse_colors,
+        'write_path': ""},
+    'i3': {
+        'function': parse_i3theme,
+        'write_path': "./test/i3.config"},
+    'polybar': {
+        'function': parse_polybar,
+        'write_path': "./test/polybar.ini"
+    }
+}
 
-
-
-    if args.load is not None:
-        theme_name = args.load
-        file = FileUtils.load_theme_from_file(theme_name)
-        if 'settings' not in file:
-            file['settings'] = {
-                    'config': "config.yaml",
-                    "install": "./defaults",}
-        file['settings']['theme_name'] =theme_name
-        InstallationUtils.install_defaults(file)
-        InstallationUtils.copy_files(theme_name, file['settings']['config'])
-        theme = Theme(file)
-        configLoader = ConfigurationLoader(file['settings']['config'])
-        configuration = configLoader.load()
-        theme.load(configuration, theme_name)
-        exit(0)
+theme_path = "./themes/"
 def test_main():
+    theme = 'trees'
+    with open(os.path.join(theme_path, theme, f"{theme}.json"), "r") as f:
+        theme_config = json.load(f)
+
+    print(theme_config)
+    keys = list(theme_config.keys())
+
+    for k in keys:
+        if k not in ['colors', 'i3']:
+            continue
+        theme_config = func_registry[k]['function'](config=theme_config,
+                write_path=func_registry[k]['write_path'])
 
 if __name__ == "__main__":
     test_main()
