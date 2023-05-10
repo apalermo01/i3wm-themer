@@ -107,3 +107,4 @@ def parse_i3theme(config: Dict,
     with open("./tmp/i3.config", "r") as f_out, open(write_path, "w") as f_in:
         for r in f_out.readlines():
             f_in.write(r)
+    return config

@@ -40,7 +40,7 @@ def test_main():
     keys = list(theme_config.keys())
 
     for k in keys:
-        if k not in ['colors', 'i3']:
+        if k not in ['colors', 'i3', 'polybar']:
             continue
         theme_config = func_registry[k]['function'](config=theme_config,
                 write_path=func_registry[k]['write_path'])
