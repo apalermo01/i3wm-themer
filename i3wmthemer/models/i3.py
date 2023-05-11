@@ -103,6 +103,12 @@ def parse_i3theme(config: Dict,
                 f.write(f"bindsym {command} {config['i3']['bindsyms'][command]}")
     logger.debug("finished writing overwritten bindsyms")
 
+    # extra lines
+    if config['i3'].get('extra_lines'):
+        with open("./tmp/i3.config", "a") as f:
+            for line in config['i3']['extra_lines']:
+                f.write(f"{line}\n")
+
     # move config to final location
     with open("./tmp/i3.config", "r") as f_out, open(write_path, "w") as f_in:
         for r in f_out.readlines():
