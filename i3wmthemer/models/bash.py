@@ -5,7 +5,7 @@ from typing import Dict
 from textwrap import dedent
 
 
-logger = logging.getlogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def parse_bash(config: Dict,
@@ -36,7 +36,7 @@ def parse_bash(config: Dict,
             """))
 
     if bash_config.get('onefetch'):
-        bash_config['extra_lines'].append('neofetch'\n')
+        bash_config['extra_lines'].append("neofetch'\n")
 
     bashrc_path = os.path.expanduser("~/.bashrc")
     bash_template_path = "./defaults/bash.template"
@@ -47,4 +47,4 @@ def parse_bash(config: Dict,
             f_out.write(line)
 
         for line in bash_config['extra_lines']:
-            f_template.write(line)
+            f_out.write(line)

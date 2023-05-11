@@ -1,6 +1,6 @@
 import logging
 from typing import Union, Dict, List
-
+from i3wmthemer.fileutils import replace_line
 
 logger = logging.getLogger(__name__)
 
@@ -80,7 +80,7 @@ def parse_i3theme(config: Dict,
 
     if 'bindsym $mod+Return exec' not in config_text_new:
         with open('./tmp/i3.config', 'a') as f:
-            f.write(f"bindsym $mod+Return exec {terminal}")
+            f.write(f"bindsym $mod+Return exec {terminal}\n")
     else:
         logger.warning("terminal is already established in i3 config, ignoring for now")
     logger.debug("done handling terminal info in i3 config")
@@ -89,7 +89,7 @@ def parse_i3theme(config: Dict,
     font = config['i3'].get("font", "pango:JetBrainsMono 10")
     if 'font' not in config_text_new:
         with open("./tmp/i3.config", "a") as f:
-            f.write(f"fond {font}")
+            f.write(f"font {font}\n")
     else:
         logger.warning("font is already established in i3 config, ignoring for now")
 
@@ -98,10 +98,16 @@ def parse_i3theme(config: Dict,
     # bindsyms
     # TODO: overwrite bindsyms through config
     if 'bindsyms' in config['i3']:
-        with open("./tmp/i3.config", "a") as f:
-            for command in config['i3']['bindsyms']:
-                f.write(f"bindsym {command} {config['i3']['bindsyms'][command]}")
-    logger.debug("finished writing overwritten bindsyms")
+        for command in config['i3']['bindsyms']:
+            match_found = replace_line(
+                    "./tmp/i3.config",
+                    f"bindsym {command}",
+                    f"bindsym {command} {config['i3']['bindsyms'][command]}\n")
+            if not match_found:
+                with open("./tmp/i3.config", "a") as f:
+                    f.write(f"bindsym {command} {config['i3']['bindsyms'][command]}\n")
+
+    logger.info("finished writing overwritten bindsyms")
 
     # extra lines
     if config['i3'].get('extra_lines'):

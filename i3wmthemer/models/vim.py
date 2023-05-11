@@ -1,12 +1,15 @@
 from typing import Dict, IO, List
 import os
 import shutil
+import logging
 
+logger = logging.getLogger(__name__)
 
 def parse_vim(config: Dict,
               write_path: str,
               theme_name: str):
     # TODO: don't hardcode save paths
+    logger.info("starting to parse vimrc")
     vim_config = config['vim']
 
     colors = vim_config.get('colors', 'gruvbox')
@@ -14,8 +17,21 @@ def parse_vim(config: Dict,
     plugs = vim_config.get('plugs', [])
     extra_lines = vim_config.get('extra_lines', [])
 
+    logger.info(f"colors = {colors}")
+    logger.info(f"colorscheme = {colorscheme}")
+    if len(plugs) > 0:
+        logger.info("Plugs:")
+        for p in plugs:
+            logger.info(p)
+        logger.info("end vim plugs")
+    if len(extra_lines) > 0:
+        logger.info("extra lines for vimrc:")
+        for l in extra_lines:
+            logger.info(l)
+        logger.ingo("end extra lines for vim")
+
     # write to the tempfile
-    with open("./defualts/vimrc.template", "r") as f_template,\
+    with open("./defaults/vimrc.template", "r") as f_template,\
         open("./tmp/.vimrc", "w") as f_temp:
 
         write_tempfile(f_template,
@@ -27,13 +43,18 @@ def parse_vim(config: Dict,
     # handle colors
     if colors != 'gruvbox':
         colors_path = f"./themes/{theme_name}/{colors}"
-        shutil.copy(src=colors_path, dst=os.path.expanduser("~/.vim/colors/"))
+        colors_dest = os.path.expanduser(f"~/.vim/colors/{colors}")
+        shutil.copy(src=colors_path, dst=colors_dest)
+        logger.info(f"copied colors script from {colors_path} to {colors_dest}")
 
     with open("./tmp/.vimrc", "a") as f:
-        f.write(f"colorschemes {colorscheme}")
+        line = f"colorscheme {colorscheme}"
+        f.write(line)
+        logger.info(f"wrote {line} to .vimrc")
 
     # write to file
     shutil.copy(src="./tmp/.vimrc", dst=os.path.expanduser("~/.vimrc"))
+    logger.info("wrote vimrc to file")
 
 def write_tempfile(f_template: IO,
                    f_temp: IO,

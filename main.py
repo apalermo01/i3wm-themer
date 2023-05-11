@@ -6,7 +6,10 @@ from i3wmthemer.models import bash
 from i3wmthemer.models import wallpaper
 import json
 import os
+import logging
+import sys
 
+logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
 def main():
     theme_name = 'trees'
@@ -16,7 +19,7 @@ def main():
 
     config = colors.parse_colors(config)
     wallpaper.parse_wallpaper(config)
-    i3.parse_i3theme(config=config, write_path=os.path.expanduser("~/.config/config"))
+    i3.parse_i3theme(config=config, write_path=os.path.expanduser("~/.config/i3/config"))
     polybar.parse_polybar(config, write_path=os.path.expanduser("~/.config/polybar/config.ini"))
     vim.parse_vim(config=config, write_path=os.path.expanduser("~/.vimrc"), theme_name=theme_name)
     bash.parse_bash(config=config, write_path=os.path.expanduser("~/.bashrc"))
