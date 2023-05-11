@@ -193,7 +193,7 @@ mode "$mode_gaps_outer" {
 
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 1
+bindsym $mod+y border pixel 5
 bindsym $mod+n border normal
 
 # Window kill command

@@ -16,9 +16,13 @@ def parse_bash(config: Dict,
 
     if 'extra_lines' not in bash_config:
         bash_config['extra_lines'] = []
+    else:
+        logger.info("bash extra lines:")
+        for l in bash_config['extra_lines']:
+            logger.info(l)
 
     if bash_config.get('pywal_colors'):
-        wp_name = config['wallpaper']
+        wp_name = config['wallpaper']['name'].split("/")[-1]
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wp_name}")
         bash_config['extra_lines'].append(dedent(f"""
         wal -n -e -i {wallpaper_path} > /dev/null \n

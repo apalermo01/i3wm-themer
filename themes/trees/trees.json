@@ -10,13 +10,18 @@
         "use_xresources": true,
 		"font": "pango:JetBrainsMono 10",
 		"terminal": "gnome-terminal",
+		"extra_lines": [
+			"# class     border backgr. text indicator child_border",
+			"# history: first col was back the all fores",
+			"# focused.background was color6"
+		],
 		"colors": {
-			"background": ["background"],
-			"focused": ["foreground", "background", "foreground", "color12", "color12"],
-			"unfocused": ["foreground", "background", "foreground", "color4", "color4"],
-			"focused_inactive": ["foreground", "background", "foreground", "color4", "color4"],
-			"urgent": ["foreground", "background", "foreground", "color4", "color4"],
-			"placeholder": ["foreground", "background", "foreground", "color4", "color4"]
+			"background": ["#00ffff"],
+			"focused":          ["foreground", "foreground", "color1", "color10", "color1"],
+			"unfocused":        ["background", "background", "color0", "color10", "black"],
+			"focused_inactive": ["background", "background", "color0", "color10", "black"],
+			"urgent":           ["#ff0000", "#990000", "#color8", "color10", "#ff0000"],
+			"placeholder":      ["background", "background", "color0", "color10", "black"]
 		},
 
 		"bindsyms": {
