@@ -75,7 +75,7 @@ def make_pallet_image(pallet):
         axes[i].set_facecolor(color)
         axes[i].xaxis.set_visible(False)
         axes[i].yaxis.set_visible(False)
-        axes[i].set_title(titles[i])
+        axes[i].set_title(f"{titles[i]}: {color}")
     fig.suptitle("Color Palette", fontsize=14)
     # ax.set_yticks(range(len(colors_list)))
     # ax.set_yticklabels(list(pallet.keys()))

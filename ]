@@ -204,5 +204,5 @@ def configure_extend(config: Dict, theme_name: str):
             for line in f.readlines():
                 config_text.append(line)
 
-        write_tmp(config_text)
+        write_tmp(f)
 

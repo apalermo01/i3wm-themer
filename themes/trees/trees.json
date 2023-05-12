@@ -17,11 +17,11 @@
 		],
 		"colors": {
 			"background": ["#00ffff"],
-			"focused":          ["foreground", "foreground", "color1", "color10", "color1"],
-			"unfocused":        ["background", "background", "color0", "color10", "black"],
-			"focused_inactive": ["background", "background", "color0", "color10", "black"],
+			"focused":          ["foreground", "foreground", "color1", "color1", "color1"],
+			"unfocused":        ["background", "background", "color0", "color8", "color8"],
+			"focused_inactive": ["background", "background", "color0", "color8", "color8"],
 			"urgent":           ["#ff0000", "#990000", "#color8", "color10", "#ff0000"],
-			"placeholder":      ["background", "background", "color0", "color10", "black"]
+			"placeholder":      ["background", "background", "color0", "color8", "color8"]
 		},
 
 		"bindsyms": {
@@ -31,19 +31,26 @@
     },
 
     "polybar": {
-        "use_xresources": true,
-        "modules-left": "xworkspaces",
-        "modules-center": "",
-        "modules-right": "filesystem pulseaudio memory cpu date",
-		"colors": {
-			"background": "background",
-			"background-alt": "#373B41",
-			"foreground": "foreground",
-			"primary": "color10",
-			"secondary": "color11",
-			"alert": "#A54242",
-			"disabled": "#707880",
-			"border": "#000000"
+		"bar/main": {
+			"separator-foreground": "${colors.color8}"
+		},
+		"module/xworkspaces": {
+			"include": "xworkspaces.ini"
+		},
+		"module/filesystem": {
+			"include": "filesystem.ini"
+		},
+		"module/pulseaudio": {
+			"include": "pulseaudio.ini"
+		},
+		"module/memory": {
+			"include": "memory.ini"
+		},
+		"module/cpu": {
+			"include": "memory.ini"
+		},
+		"module/date": {
+			"include": "date.ini"
 		}
     },
 

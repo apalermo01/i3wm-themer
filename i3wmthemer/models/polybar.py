@@ -1,28 +1,30 @@
 import configparser
 import os
 import shutil
+from typing import Dict
+import logging
 
-def parse_polybar(config, write_path):
+logger = logging.getLogger(__name__)
 
-    settings = config['polybar']
-    polybar_config = configparser.ConfigParser()
-    polybar_config.read("./defaults/polybar.template")
+def parse_polybar(config: Dict,
+                  write_path: str,
+                  theme_name: str):
 
-    # TODO: load polybar config from theme folder
-    # TODO: modules-left, modules-right, and modules-center
-    # TODO: lay out exactly how default settings and theme specific settings should interact
-    # TODO: rename colors in template polybar config
-    # TODO: handle overwrites
-    polybar_config['colors'] = config['colors']['pallet']
+    # get settings
+    polybar_config = config['polybar']
 
+    # load the theme-specific polybar config
+    polybar = configparser.ConfigParser()
+    polybar.read(f"./themes/{theme_name}/polybar.ini")
 
-    with open("./tmp/polybar.ini", "w") as f:
-        polybar_config.write(f)
+    # add colors from the pallet
+    polybar['colors'] = config['colors']['pallet']
+    polybar = init_modules(config, polybar)
+    polybar = parse_includes(config, polybar, theme_name)
+    polybar = parse_opts(config, polybar)
 
-    # save to final file
-    with open("./tmp/polybar.ini", "r") as f_out, open(write_path, "w") as f_in:
-        for line in f_out.readlines():
-            f_in.write(line)
+    with open(write_path, "w") as f:
+        polybar.write(f)
 
     # launch script
     src_script = "./scripts/i3wmthemer_bar_launch.sh"
@@ -33,3 +35,35 @@ def parse_polybar(config, write_path):
     with open(dest_script, 'w') as f:
         pass
     shutil.copy2(src_script, dest)
+
+def init_modules(config, polybar):
+    for module in config['polybar']:
+        if '/' in module:
+            if module not in polybar:
+                polybar[module] = {}
+    return polybar
+
+def parse_includes(config, polybar, theme_name):
+    for key in config['polybar']:
+        if "/" in key and "include" in config['polybar'][key]:
+            include_path = config['polybar'][key]['include']
+
+            # relative path from project source
+            if include_path[0] == '.':
+                path = os.path.abspath(include_path)
+                logger.info(f"using relative path - pulling module {key} from {path}")
+            # module file lives in theme directory
+            else:
+                path = os.path.abspath(os.path.join('.', 'themes', theme_name, include_path))
+                logger.info(f"using theme path - pulling module {key} from {path}")
+            polybar[key]['include-file'] = path
+
+    return polybar
+
+def parse_opts(config, polybar):
+    for key in config['polybar']:
+        if '/' in key:
+            for option in config['polybar'][key]:
+                if option != 'include':
+                    polybar[key][option] = config['polybar'][key][option]
+    return polybar

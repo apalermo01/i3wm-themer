@@ -19,14 +19,29 @@
 [colors]
 
 [bar/main]
+; which monitor this bar should appear on
 monitor = ${env:MONITOR:}
-width = 100%
-height = 27
-radius = 0
+
+; puts the bar at the bottom of the screen
+botom = false
+
+; prefer fixed center position for 'modules-center' block
 fixed-center = false
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+; width and height of bar window
+width = 100%
+height = 27
+
+; offsets
+offset-x = 0
+offset-y = 0
+
+; rounded corners
+radius = 0
+
+; colors
+background = ${colors.bar_main_background}
+foreground = ${colors.bar_main_foreground}
 
 line-size = 3pt
 line-color =

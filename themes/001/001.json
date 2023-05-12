@@ -34,7 +34,13 @@
     "client.urgent": "#EAD49B #1E272B #EAD49B #78824B #78824B",
     "client.placeholder": "#EAD49B #1E272B #EAD49B #78824B #78824B"
   },
+
   "polybar": {
+	"bar/main": {
+		"radius": 0.1
+	}
+  },
+  "polybar_old": {
     "modules-left": "i3",
     "modules-center": "date",
     "modules-right": "wlan eth powermenu",
