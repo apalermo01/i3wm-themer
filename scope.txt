@@ -15,4 +15,11 @@ Break out config settings into a series of modules:
 
 - wallpaper
 	- each theme folder will have a wallpaper that's automatically installed
- 
+
+Some thoughts about the order in which things get loaded:
+
+Here are all the places where a config can get built:
+
+- the defaults folder -> each module should have a spot where you can configure the defaults
+- in the config: this is good for modifying just a couple lines from the config
+- an extend file in the theme's folder -> this is good for completely rewriting sections of a config  

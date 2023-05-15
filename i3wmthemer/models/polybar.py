@@ -15,10 +15,21 @@ def parse_polybar(config: Dict,
 
     # load the theme-specific polybar config
     polybar = configparser.ConfigParser()
-    polybar.read(f"./themes/{theme_name}/polybar.ini")
+    read_path = f"./themes/{theme_name}/polybar.ini"
+    if not os.path.exists(read_path):
+        polybar.read(f"./defaults/polybar.template")
+    else:
+        polybar.read(f"./themes/{theme_name}/polybar.ini")
 
     # add colors from the pallet
-    polybar['colors'] = config['colors']['pallet']
+    if 'colors' not in polybar:
+        polybar['colors'] = {}
+    for c in config['colors']['pallet']:
+        polybar['colors'][c] = config['colors']['pallet'][c]
+    if 'colors' in config['polybar']:
+        for c in config['polybar']['colors']:
+            polybar['colors'][c] = config['polybar']['colors'][c]
+    # polybar['colors'] = config['colors']['pallet']
     polybar = init_modules(config, polybar)
     polybar = parse_includes(config, polybar, theme_name)
     polybar = parse_opts(config, polybar)

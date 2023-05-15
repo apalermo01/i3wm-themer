@@ -5,7 +5,7 @@ import json
 import subprocess
 import matplotlib.pyplot as plt
 import numpy as np
-
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -33,17 +33,27 @@ def parse_colors(#template: Dict,
         this will likely be similar to the xresources colors
     """
 
-    if config is None or config['colors']['settings']['color_mode'] == 'pywal':
+    if config is None or ('settings' in config['colors'] and config['colors']['settings']['color_mode'] == 'pywal'):
         wallpaper = config['wallpaper']
         pallet = configure_pywal_colors(config['wallpaper'])
         logger.debug(f"pallet derived from pywal")
         config['colors']['pallet'] = pallet
     else:
+
+        # remove rofi colors (used in default configs)
+        pallet_new = {}
+        for p in config['colors']['pallet']:
+            if 'rofi' not in p:
+                pallet_new[p] = config['colors']['pallet'][p]
+        config['colors']['pallet'] = pallet_new
         pallet = config['colors']['pallet']
+
         logger.debug("using manual pallet")
     if 'black' not in config['colors']['pallet']:
         config['colors']['pallet']['black'] = "#000000"
     make_pallet_image(pallet)
+    with open("./tmp/pallet.json", "w") as f:
+        json.dump(pallet, f, indent=2)
     return config
 
 

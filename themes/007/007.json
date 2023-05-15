@@ -1,5 +1,6 @@
 {
-  "xresources": {
+  "colors": {
+	  "pallet": {
     "background": "#1f1f1f",
     "foreground": "#c6c6c6",
     "cursorcolor": "#c6c6c6",
@@ -18,24 +19,22 @@
     "color12": "#8abeb7",
     "color13": "#b294bb",
     "color14": "#8abeb7",
-    "color15": "#c6c6c6",
-    "rofi.color-window": "#828282, #8abeb7, #8abeb7",
-    "rofi.color-normal": "#828282, #c6c6c6, #8abeb7, #c6c6c6, #78824B",
-    "rofi.color-active": "#828282, #c6c6c6, #8abeb7, #c6c6c6, #78824B",
-    "rofi.color-urgent": "#828282, #c6c6c6, #8abeb7, #c6c6c6, #78824B"
+    "color15": "#c6c6c6"}
   },
-  "i3": {
-    "client.background": "#1f1f1f",
-    "client.focused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
-    "client.unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
-    "client.focused_inactive": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
-    "client.urgent": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
-    "client.placeholder": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7"
+  "i3wm": {
+	  "colors": {
+    "background": "#1f1f1f",
+    "focused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
+    "unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
+    "focused_inactive": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
+    "urgent": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
+    "placeholder": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7"}
   },
   "polybar": {
+	  "bar/main": {
     "modules-left": "xworkspaces",
     "modules-center": "",
-    "modules-right": "date powermenu",
+    "modules-right": "date powermenu"},
 	"colors": {
         "background": "#1f1f1f",
         "foreground": "#c6c6c6",
@@ -63,6 +62,9 @@
   },
   "wallpaper": "007.png",
 
+  "bash": {
+	  "pywal_colors": true
+  },
   "vim": {
 	  "colors": "nokto.vim",
 	  "colorscheme": "nokto"

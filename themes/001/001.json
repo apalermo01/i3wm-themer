@@ -27,23 +27,20 @@
 	}
   },
   "i3wm": {
-    "client.background": "#1E272B",
-    "client.focused": "#EAD49B #1E272B #EAD49B #9D6A47 #9D6A47",
-    "client.unfocused": "#EAD49B #1E272B #EAD49B #78824B #78824B",
-    "client.focused_inactive": "#EAD49B #1E272B #EAD49B #78824B #78824B",
-    "client.urgent": "#EAD49B #1E272B #EAD49B #78824B #78824B",
-    "client.placeholder": "#EAD49B #1E272B #EAD49B #78824B #78824B"
-  },
+	  "colors": {
+    "background": "#1E272B",
+    "focused": "#EAD49B #1E272B #EAD49B #9D6A47 #9D6A47",
+    "unfocused": "#EAD49B #1E272B #EAD49B #78824B #78824B",
+    "focused_inactive": "#EAD49B #1E272B #EAD49B #78824B #78824B",
+    "urgent": "#EAD49B #1E272B #EAD49B #78824B #78824B",
+    "placeholder": "#EAD49B #1E272B #EAD49B #78824B #78824B"
+  }},
 
   "polybar": {
-	"bar/main": {
-		"radius": 0.1
-	}
-  },
-  "polybar_old": {
+	 "bar/main":{
     "modules-left": "i3",
     "modules-center": "date",
-    "modules-right": "wlan eth powermenu",
+    "modules-right": "wlan eth powermenu"},
 	"colors": {
         "label-unfocused-background": "#78824b",
         "background": "#1E272B",
@@ -65,6 +62,9 @@
         "format-connected-prefix-foreground": "#1E272B",
         "ramp-signal-foreground": "#1E272B"
 	}
+  },
+  "bash": {
+	  "pywal_colors": true
   },
   "wallpaper": "001.png"
 }

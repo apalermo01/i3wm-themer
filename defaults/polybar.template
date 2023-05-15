@@ -40,13 +40,13 @@ offset-y = 0
 radius = 0
 
 ; colors
-background = ${colors.bar_main_background}
-foreground = ${colors.bar_main_foreground}
+background = ${colors.background}
+foreground = ${colors.foreground}
 
 line-size = 3pt
 line-color =
 
-border-size = 4pt
+border-size = 0pt
 border-color = 
 
 padding-left = 0
@@ -77,19 +77,20 @@ type = internal/xworkspaces
 pin-workspaces = true
 enable-scroll = false
 label-active = %name%
-label-active-background = ${colors.background}
-label-active-underline = ${colors.underline}
+label-active-background = ${colors.label-active-background}
+label-active-underline = ${colors.label-active-underline}
 label-active-padding = 1
 
 label-occupied = %name%
 label-occupied-padding = 1
 
 label-urgent = %name%
-label-urgent-background = ${colors.background}
+label-urgent-background = ${colors.label-urgent-background}
 label-urgent-padding = 1
 
 label-empty = %name%
 label-empty-padding = 1
+
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
@@ -97,26 +98,26 @@ index-sort = true
 wrapping-scroll = false
 
 label-mode-padding = 2
-label-mode-foreground = ${colors.foreground}
-label-mode-background = ${colors.background}
+label-mode-foreground = ${colors.label-mode-foreground}
+label-mode-background = ${colors.label-mode-foreground}
 
 label-focused = %index%
-label-focused-background = ${colors.background}
-label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.label-focused-background}
+label-focused-foreground = ${colors.label-focused-foreground}
 label-focused-padding = 2
 
 label-unfocused = %index%
-label-unfocused-background = ${colors.background}
-label-unfocused-foreground = ${colors.foreground}
+label-unfocused-background = ${colors.label-unfocused-background}
+label-unfocused-foreground = ${colors.label-unfocused-foreground}
 label-unfocused-padding = 2
 
 label-visible = %index%
-label-visible-background = ${colors.background}
-label-visible-foreground = ${colors.foreground}
+label-visible-background = ${colors.label-visible-background}
+label-visible-foreground = ${colors.label-visible-foreground}
 label-visible-padding = 2
 
 label-urgent = %index%
-label-urgent-background = ${colors.color0}`
+label-urgent-background = ${colors.label-urgent-background}
 label-urgent-padding = 2
 
 [module/wlan]
@@ -125,8 +126,8 @@ interface = net1
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-foreground = ${colors.foreground}
-format-connected-background = ${colors.background}
+format-connected-foreground = ${colors.format-connected-foreground}
+format-connected-background = ${colors.format-connected-background}
 format-connected-padding = 2
 label-connected = %essid%
 
@@ -137,7 +138,7 @@ ramp-signal-1 = 
 ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
-ramp-signal-foreground = ${colors.background}
+ramp-signal-foreground = ${colors.ramp-signal-background}
 
 [module/eth]
 type = internal/network
@@ -145,10 +146,10 @@ interface = enp0s3
 interval = 3.0
 
 format-connected-padding = 2
-format-connected-foreground = ${colors.foreground}
-format-connected-background = ${colors.background}
+format-connected-foreground = ${colors.format-connected-foreground}
+format-connected-background = ${colors.format-connected-background}
 format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.background}
+format-connected-prefix-foreground = ${colors.format-connected-prefix-foreground}
 label-connected = %local_ip%
 
 format-disconnected =
@@ -164,8 +165,8 @@ time = %H:%M
 time-alt = %H:%M:%S
 
 format-prefix = 
-format-foreground = ${colors.foreground}
-format-background = ${colors.background}
+format-foreground = ${colors.format-foreground}
+format-background = ${colors.format-background}
 format-padding = 2
 
 label = %date% %time%
@@ -175,11 +176,11 @@ type = custom/menu
 expand-right = true
 format-spacing = 1
 label-open = 
-label-open-foreground = ${colors.foreground}
+label-open-foreground = ${colors.label-open-foreground}
 label-close =  cancel
-label-close-foreground = ${colors.background}
+label-close-foreground = ${colors.label-close-foreground}
 label-separator = |
-label-separator-foreground = ${colors.foreground}
+label-separator-foreground = ${colors.label-seperator-foreground}
 
 menu-0-0 = reboot
 menu-0-0-exec = menu-open-1

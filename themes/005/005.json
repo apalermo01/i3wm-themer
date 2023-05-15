@@ -1,5 +1,5 @@
 {
-  "xresources": {
+  "colors": {"pallet": {
     "background": "#2f2f38",
     "foreground": "#b0c4bb",
     "cursorcolor": "#b0c4bb",
@@ -18,24 +18,23 @@
     "color12": "#81a2be",
     "color13": "#668ca1",
     "color14": "#759496",
-    "color15": "#b0c4bb",
-    "rofi.color-window": "#34343e, #759496, #759496",
-    "rofi.color-normal": "#34343e, #b0c4bb, #759496, #b0c4bb, #78824B",
-    "rofi.color-active": "#34343e, #b0c4bb, #759496, #b0c4bb, #78824B",
-    "rofi.color-urgent": "#34343e, #b0c4bb, #759496, #b0c4bb, #78824B"
+    "color15": "#b0c4bb"
+    }
   },
   "i3wm": {
-    "client.background": "#2f2f38",
-    "client.focused": "#b0c4bb #2f2f38 #b0c4bb #81a2be #81a2be",
-    "client.unfocused": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486",
-    "client.focused_inactive": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486",
-    "client.urgent": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486",
-    "client.placeholder": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486"
+	  "colors": {
+    "background": "#2f2f38",
+    "focused": "#b0c4bb #2f2f38 #b0c4bb #81a2be #81a2be",
+    "unfocused": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486",
+    "focused_inactive": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486",
+    "urgent": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486",
+    "placeholder": "#b0c4bb #2f2f38 #b0c4bb #688486 #688486"}
   },
   "polybar": {
+	  "bar/main":{
     "modules-left": "wlan eth",
     "modules-center": "i3",
-    "modules-right": "date powermenu",
+    "modules-right": "date powermenu"},
 	"colors": {
         "background": "#2f2f38",
         "foreground": "#b0c4bb",
@@ -57,6 +56,9 @@
         "format-connected-prefix-foreground": "#2f2f38",
         "ramp-signal-foreground": "#2f2f38"
 	}
+  },
+  "bash": {
+	  "pywal_colors": true
   },
   "wallpaper": "005.png"
 }

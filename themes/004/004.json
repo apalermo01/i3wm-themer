@@ -1,5 +1,6 @@
 {
-  "xresources": {
+  "colors": {
+	  "pallet": {
     "background": "#1d1e26",
     "foreground": "#b0b287",
     "cursorcolor": "#b0b287",
@@ -22,20 +23,22 @@
     "rofi.color-window": "#1d1e26, #b5bd68, #b5bd68",
     "rofi.color-normal": "#1d1e26, #b0b287, #8c9440, #b0b287, #78824B",
     "rofi.color-active": "#1d1e26, #b0b287, #8c9440, #b0b287, #78824B",
-    "rofi.color-urgent": "#1d1e26, #b0b287, #8c9440, #b0b287, #78824B"
+    "rofi.color-urgent": "#1d1e26, #b0b287, #8c9440, #b0b287, #78824B"}
   },
   "i3wm": {
+	  "colors": {
     "client.background": "#1d1e26",
     "client.focused": "#b0b287 #1d1e26 #b0b287 #789073 #789073",
     "client.unfocused": "#b0b287 #1d1e26 #b0b287 #789073 #789073",
     "client.focused_inactive": "#b0b287 #1d1e26 #b0b287 #789073 #789073",
     "client.urgent": "#b0b287 #1d1e26 #b0b287 #789073 #789073",
-    "client.placeholder": "#b0b287 #1d1e26 #b0b287 #789073 #789073"
+    "client.placeholder": "#b0b287 #1d1e26 #b0b287 #789073 #789073"}
   },
   "polybar": {
+	  "bar/main": {
     "modules-left": "wlan eth",
     "modules-center": "i3",
-    "modules-right": "date powermenu",
+    "modules-right": "date powermenu"},
 	"colors": {
         "background": "#1d1e26",
         "foreground": "#b0b287",
@@ -57,6 +60,9 @@
         "format-connected-prefix-foreground": "#1d1e26",
         "ramp-signal-foreground": "#1d1e26"
 	}
+  },
+  "bash": {
+	  "pywal_colors": true
   },
   "wallpaper": "004.png"
 }

@@ -24,39 +24,34 @@ def write_tmp(lines):
 def parse_i3theme(config: Dict,
                   write_path: str,
                   theme_name: str,
-                  base_path: str = "./defaults/i3wm.template",
-                  append_list: Union[List, None] = None):
+                  default_path: str = "./defaults/",):
     """
     Configures i3wm settings from a base file
 
-    v1:
-    First reads in the file located at base path
-    then appends any extra configuration settings from the data found in append_list
-    then adds the configuration info found in the config dictionary
-    possible keys for configuration_dat dictionary:
-        bindsyms: list of custom keybindings specific to the theme
-            TODO: what if we optionally put this info somewhere easily accessible?
-        default_terminal: name of the default terminal to use (bindsym)
-
-    v2:
-    - read in base components from defaults: bindsyms and templates
-    - append additional lines from theme template
-    - read color info from appropriate color files (need to design colors module first)
-    - update config with color information based on palett and config file
-    - overwrite lines based on json file
-
-    v3: start with a list of lines to put in the file, at some point write them to a tmp file
+    :param config: main config file
+    :param write_path: path that we should write the final output to
+    :param theme_name: name of the current theme
+    :param default_path: path to the default file
     """
     # initialize tmep file
     with open("tmp/i3.config", "w") as f:
         logger.warning("overwrote i3.config temp file")
 
-    key_mappings()
-    base_settings(base_path=base_path)
+    # allow config to overwrite default file
+    if 'default_path' in config['i3wm']:
+        default_path = config['i3wm']['default_path']
+
+    # load from template
+    key_mappings(base_path=default_path)
+    base_settings(base_path=default_path)
+
+    # load from config
     write_colors(config=config)
     config_terminal(config=config)
     configure_bindsyms(config=config)
     configure_extra_lines(config=config)
+
+    # append theme-specific lines
     configure_extend(config=config, theme_name=theme_name)
 
     # move config to final location
@@ -65,11 +60,11 @@ def parse_i3theme(config: Dict,
             f_in.write(r)
     return config
 
-def key_mappings():
+def key_mappings(base_path: str):
     """Writes the default keybindings to a temp file
     """
     logger.warning("about to write bindsyms to tmp file")
-    with open("./defaults/i3_keybindings.template", "r") as f:
+    with open(os.path.join(base_path, "i3_keybindings.template"), "r") as f:
         keybindings = f.readlines()
 
     with open("./tmp/i3.config", "a") as f:
@@ -83,7 +78,7 @@ def base_settings(base_path: str):
     """
     # base settings
     logger.warning("writing base settings to tmp file")
-    with open(base_path, "r") as f_in,\
+    with open(os.path.join(base_path, "i3wm.template"), "r") as f_in,\
             open("./tmp/i3.config", "a") as f_out:
 
         for line in f_in.readlines():
@@ -110,9 +105,9 @@ def write_colors(config: Dict):
         # going through each entrry in the colors
         # color_entry is background, focused, etc.
         found_color = False
-        for color_entry in config['i3']['colors']:
+        for color_entry in config['i3wm']['colors']:
 
-              # we just found a line in the temp file for some colors
+            # we just found a line in the temp file for some colors
             if f"client.{color_entry}" in line.strip():
                 found_color = True
                 # start defining a new version of this line. Our goal
@@ -120,8 +115,11 @@ def write_colors(config: Dict):
                 # with the corresponding hex values found in the pallet
                 newline = f"client.{color_entry}"
 
-                  # search through the pallet
-                for color_name in config['i3']['colors'][color_entry]:
+                # the color entry may be a string or list
+                if isinstance(config['i3wm']['colors'][color_entry], str):
+                    config['i3wm']['colors'][color_entry] = config['i3wm']['colors'][color_entry].split(' ')
+                # search through the pallet
+                for color_name in config['i3wm']['colors'][color_entry]:
 
                     # if this runs, a hex code was specified and we don't have to
                     # do anything
@@ -149,7 +147,7 @@ def config_terminal(config: Dict):
     """write information about what terminal to use in the config"""
 
     # terminal
-    terminal = config['i3'].get('terminal', 'i3-sensible-terminal')
+    terminal = config['i3wm'].get('terminal', 'gnome-terminal')
     config_text = read_tmp()
 
     if 'bindsym $mod+Return exec' not in config_text:
@@ -162,7 +160,7 @@ def config_terminal(config: Dict):
 def config_font(config: Dict):
     """Write font info to i3 config"""
 
-    font = config['i3'].get("font", "pango:JetBrainsMono 10")
+    font = config['i3wm'].get("font", "pango:JetBrainsMono 10")
 
     config_text = read_tmp()
     if 'font' not in config_text:
@@ -176,24 +174,24 @@ def config_font(config: Dict):
 def configure_bindsyms(config: Dict):
     """Handle theme-specific bindsyms (there shouldn't be many of these"""
 
-    if 'bindsyms' in config['i3']:
-        for command in config['i3']['bindsyms']:
+    if 'bindsyms' in config['i3wm']:
+        for command in config['i3wm']['bindsyms']:
             match_found = replace_line(
                     "./tmp/i3.config",
                     f"bindsym {command}",
-                    f"bindsym {command} {config['i3']['bindsyms'][command]}\n")
+                    f"bindsym {command} {config['i3wm']['bindsyms'][command]}\n")
             if not match_found:
                 with open("./tmp/i3.config", "a") as f:
-                    f.write(f"bindsym {command} {config['i3']['bindsyms'][command]}\n")
+                    f.write(f"bindsym {command} {config['i3wm']['bindsyms'][command]}\n")
 
     logger.info("finished writing overwritten bindsyms")
 
 def configure_extra_lines(config: Dict):
     """Write any extra lines specified in the config file to i3"""
     # extra lines
-    if config['i3'].get('extra_lines'):
+    if config['i3wm'].get('extra_lines'):
         with open("./tmp/i3.config", "a") as f:
-            for line in config['i3']['extra_lines']:
+            for line in config['i3wm']['extra_lines']:
                 f.write(f"{line}\n")
 
 def configure_extend(config: Dict, theme_name: str):

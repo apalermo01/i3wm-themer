@@ -9,12 +9,30 @@ import json
 import os
 import logging
 import sys
+import argparse
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
+path_config = {
+        'colors': None,
+        'wallpaper': None,
+        'i3wm': os.path.expanduser("~/.config/i3/config"),
+        'polybar': os.path.expanduser("~/.config/polybar/config.ini"),
+        'vim': os.path.expanduser("~/.vimrc"),
+        'bash': os.path.expanduser("~/.bashrc"),
+        'picom': os.path.expanduser("~/.config/picom.conf"),
+        }
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--theme")
+    args = parser.parse_args()
+    return args
+
 def main():
-    theme_name = 'trees'
-    path = "./themes/trees/trees.json"
+    args = parse_args()
+    theme_name = args.theme
+    path = f"./themes/{theme_name}/{theme_name}.json"
     with open(path, "r") as f:
         config = json.load(f)
 
@@ -27,7 +45,9 @@ def main():
                           write_path=os.path.expanduser("~/.config/polybar/config.ini"),
                           theme_name=theme_name)
     vim.parse_vim(config=config, write_path=os.path.expanduser("~/.vimrc"), theme_name=theme_name)
-    bash.parse_bash(config=config, write_path=os.path.expanduser("~/.bashrc"))
+    if 'bash' in config:
+        bash.parse_bash(config=config, write_path=os.path.expanduser("~/.bashrc"))
     picom.parse_picom(config=config, write_path = os.path.expanduser("~/.config/picom.conf"), theme_name=theme_name)
+
 if __name__ == '__main__':
     main()

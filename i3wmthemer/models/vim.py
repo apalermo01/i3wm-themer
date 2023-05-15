@@ -10,7 +10,7 @@ def parse_vim(config: Dict,
               theme_name: str):
     # TODO: don't hardcode save paths
     logger.info("starting to parse vimrc")
-    vim_config = config['vim']
+    vim_config = config.get('vim', {})
 
     colors = vim_config.get('colors', 'gruvbox')
     colorscheme = vim_config.get('colorscheme', 'gruvbox')
