@@ -25,16 +25,16 @@
 	  "colors": {
     "background": "#1f1f1f",
     "focused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
-    "unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
-    "focused_inactive": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
+    "unfocused": "#c6c6c6 #1f1f1f #c6c6c6 #486c68 #486c68",
+    "focused_inactive": "#c6c6c6 #1f1f1f #c6c6c6 #486c68 #486c68",
     "urgent": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7",
-    "placeholder": "#c6c6c6 #1f1f1f #c6c6c6 #8abeb7 #8abeb7"}
+    "placeholder": "#c6c6c6 #1f1f1f #c6c6c6 #486c68 #486c68"}
   },
   "polybar": {
 	  "bar/main": {
     "modules-left": "xworkspaces",
     "modules-center": "",
-    "modules-right": "date powermenu"},
+    "modules-right": "pulseaudio date powermenu"},
 	"colors": {
         "background": "#1f1f1f",
         "foreground": "#c6c6c6",
@@ -58,8 +58,10 @@
 		"label-active-background": "#1f1f1f",
 		"label-active-foreground": "#828282",
 		"label-active-underline": "#8abeb7"
-	}
-  },
+	},
+	"module/pulseaudio": {
+		"include": "pulseaudio.ini" 
+  }},
   "wallpaper": "007.png",
 
   "bash": {

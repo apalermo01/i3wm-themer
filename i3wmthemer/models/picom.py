@@ -16,4 +16,4 @@ def parse_picom(config: Dict,
     if os.path.exists(theme_path):
         logger.info("found picom.conf")
         shutil.copy(src=theme_path, dst=write_path)
-
+    return config

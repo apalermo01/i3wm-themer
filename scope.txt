@@ -1,25 +1,15 @@
-scoping out structural changes for themer
+Scoping out ideas for next steps:
 
-Break out config settings into a series of modules:
+- [ ]  standardize all input arguments for each parsing function
+- [ ]  allow the input config to have an arbitrary combination of keys
+- [ ]  better documentation for parsing functions
+- [ ]  fix gruvbox rice - figure out why wal throwing an error
+- [ ]  add backup functionality: save the current version of all configs about to be written over (save to existing directory or dedicated backup folder?)
+	- [ ]  make an option to make the current configs the default configs that all things inherit from (specify this on a tool-by-tool basis?)
+- [ ]  add restore functionality: if there's a theme that doesn't have a certain tool configured - restore that tool to its default config (i.e. 
+- [ ]  add support for other tools:
+	- [ ]  dunst
+	- [ ]  rofi
+	- [ ]  conky
+	- [ ]  neofetch
 
-- colorscheme:
-	- generate this from pywal or manually specify hex codes
-	- one file is for the color pallet
-	- have a colors file for each module in the theme that maps to the pallet
-
-- keybindings
-	- keep a base file that contains all keybindings that need to be the same across all themes. It's unlikely that keybindings will be changing across themes, but if that's the case, then keep a section in the config for custom keybindings
-
-- status bar
-	- each available status bar will have a default config that everything can inherit from. each theme folder may have a template file that adds / changes settings in the base file
-
-- wallpaper
-	- each theme folder will have a wallpaper that's automatically installed
-
-Some thoughts about the order in which things get loaded:
-
-Here are all the places where a config can get built:
-
-- the defaults folder -> each module should have a spot where you can configure the defaults
-- in the config: this is good for modifying just a couple lines from the config
-- an extend file in the theme's folder -> this is good for completely rewriting sections of a config  

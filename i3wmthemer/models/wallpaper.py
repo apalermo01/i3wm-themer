@@ -8,7 +8,7 @@ import shutil
 logger = logging.getLogger(__name__)
 
 
-def parse_wallpaper(config: Dict):
+def parse_wallpaper(config: Dict, *args, **kwargs):
 
     if isinstance(config['wallpaper'], str):
         name = config['wallpaper']
@@ -32,8 +32,11 @@ def feh_theme(config: Dict):
     # if just the filename was given, look in the project's wallpaper folder:
     if '/' not in wallpaper_path:
         wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+    logger.info(f"wallpaper path is: {wallpaper_path}")
+
     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
         os.makedirs(os.path.expanduser("~/Picutres/wallpapers/"))
+
     logger.warning("Loading wallpaper")
 
     # TODO: move this functionality to the i3 module

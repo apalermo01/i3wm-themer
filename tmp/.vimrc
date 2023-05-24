@@ -139,4 +139,4 @@ map <leader>tc :tabclose<c>
 map <leader>to :tabonly<cr>
 
 set background=dark
-colorscheme gruvbox
+colorscheme blue_in_green

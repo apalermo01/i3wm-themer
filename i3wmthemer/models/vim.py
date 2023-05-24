@@ -55,7 +55,7 @@ def parse_vim(config: Dict,
     # write to file
     shutil.copy(src="./tmp/.vimrc", dst=os.path.expanduser("~/.vimrc"))
     logger.info("wrote vimrc to file")
-
+    return config
 def write_tempfile(f_template: IO,
                    f_temp: IO,
                    colors: str,

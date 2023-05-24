@@ -9,7 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 def parse_bash(config: Dict,
-               write_path: str):
+               write_path: str,
+               theme_name: str):
 
     # TODO: don't hardcode paths
     bash_config = config['bash']
@@ -22,7 +23,10 @@ def parse_bash(config: Dict,
             logger.info(l)
 
     if bash_config.get('pywal_colors'):
-        wp_name = config['wallpaper']['name'].split("/")[-1]
+        if 'name' in config['wallpaper']:
+            wp_name = config['wallpaper']['name'].split("/")[-1]
+        else:
+            wp_name = config['wallpaper'].split("/")[-1]
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wp_name}")
         bash_config['extra_lines'].append(dedent(f"""
         wal -n -e -i {wallpaper_path} > /dev/null \n
@@ -52,3 +56,4 @@ def parse_bash(config: Dict,
 
         for line in bash_config['extra_lines']:
             f_out.write(line)
+    return config

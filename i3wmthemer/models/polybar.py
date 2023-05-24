@@ -46,7 +46,7 @@ def parse_polybar(config: Dict,
     with open(dest_script, 'w') as f:
         pass
     shutil.copy2(src_script, dest)
-
+    return config
 def init_modules(config, polybar):
     for module in config['polybar']:
         if '/' in module:

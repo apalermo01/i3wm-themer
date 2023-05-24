@@ -17,10 +17,10 @@
 		],
 		"colors": {
 			"background": ["#00ffff"],
-			"focused":          "foreground foreground color1 color1 color1",
-			"unfocused":        ["background", "background", "color0", "color8", "color8"],
-			"focused_inactive": ["background", "background", "color0", "color8", "color8"],
-			"urgent":           ["#ff0000", "#990000", "#color8", "color10", "#ff0000"],
+			"focused":          "foreground foreground background color1 color1",
+			"unfocused":        ["background", "background", "color15", "color8", "color8"],
+			"focused_inactive": ["background", "background", "color15", "color8", "color8"],
+			"urgent":           ["#ff0000", "#990000", "#color8", "color15", "#ff0000"],
 			"placeholder":      ["background", "background", "color0", "color8", "color8"]
 		},
 
