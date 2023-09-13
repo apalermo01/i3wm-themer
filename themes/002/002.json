@@ -38,7 +38,7 @@
   },
   "polybar": {
 	"bar/main":{
-    	"modules-left": "i3",
+    	"modules-left": "xworkspaces",
     	"modules-center": "date",
     	"modules-right": "wlan eth powermenu"
 	},
@@ -53,6 +53,7 @@
         "label-focused-background": "#75404b",
         "label-visible-background": "#75404b",
         "label-visible-foreground": "#162025",
+		"label-active-underline": "#75404b",
         "format-foreground": "#162025",
         "format-background": "#4c584a",
         "label-open-foreground": "#39402e",

@@ -38,7 +38,7 @@
 
   "polybar": {
 	 "bar/main":{
-    "modules-left": "i3",
+    "modules-left": "xworkspaces",
     "modules-center": "date",
     "modules-right": "wlan eth powermenu"},
 	"colors": {
@@ -54,6 +54,7 @@
         "label-visible-foreground": "#1E272B",
         "format-foreground": "#1E272B",
         "format-background": "#d99f57",
+		"label-active-underline": "9d6a47",
         "label-open-foreground": "#9d6a47",
         "label-close-foreground": "#9d6a47",
         "label-separator-foreground": "#9d6a47",

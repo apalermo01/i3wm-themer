@@ -38,6 +38,7 @@ order = ['colors', 'wallpaper', 'i3wm', 'polybar', 'vim', 'bash', 'picom']
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
+    parser.add_argument("--backup", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     return args
 
@@ -47,11 +48,15 @@ def main():
     path = f"./themes/{theme_name}/{theme_name}.json"
     with open(path, "r") as f:
         config = json.load(f)
-
+    backup = False
     for key in order:
         if key in config:
             logger.info(f"parsing {key}")
-            config = func_registry[key](config=config, write_path = path_config[key],  theme_name = theme_name)
+            config = func_registry[key](
+                    config=config,
+                    write_path=path_config[key],
+                    theme_name=theme_name,
+                    backup=backup)
 
     # config = colors.parse_colors(config, None, None)
     # wallpaper.parse_wallpaper(config, None, None)

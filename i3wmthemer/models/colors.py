@@ -12,7 +12,8 @@ logger = logging.getLogger(__name__)
 def parse_colors(#template: Dict,
                  config: Dict,
                  write_path: str,
-                 theme_name: str):
+                 theme_name: str,
+                 backup: bool = None):
     """parse_colors.
 
     :param config:

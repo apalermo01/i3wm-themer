@@ -2,7 +2,8 @@ import logging
 from typing import Union, Dict, List
 from i3wmthemer.fileutils import replace_line
 import os
-
+from i3wmthemer.utils.common import get_timestamp
+import shutil
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +25,8 @@ def write_tmp(lines):
 def parse_i3theme(config: Dict,
                   write_path: str,
                   theme_name: str,
-                  default_path: str = "./defaults/",):
+                  default_path: str = "./defaults/",
+                  backup: bool = False):
     """
     Configures i3wm settings from a base file
 
@@ -34,6 +36,11 @@ def parse_i3theme(config: Dict,
     :param default_path: path to the default file
     """
     # initialize tmep file
+    if backup:
+        i3_path = os.path.expanduser("~/.config/i3/")
+        fname = f"i3_config_backup_{get_timestamp()}"
+        shutil.copy2(src=os.path.join(i3_path, "config"), dst=os.path.join(i3_path, fname))
+
     with open("tmp/i3.config", "w") as f:
         logger.warning("overwrote i3.config temp file")
 

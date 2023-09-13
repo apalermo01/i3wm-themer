@@ -8,7 +8,8 @@ logger = logging.getLogger(__name__)
 
 def parse_polybar(config: Dict,
                   write_path: str,
-                  theme_name: str):
+                  theme_name: str,
+                  backup = False):
 
     # get settings
     polybar_config = config['polybar']

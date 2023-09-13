@@ -7,7 +7,9 @@ logger = logging.getLogger(__name__)
 
 def parse_vim(config: Dict,
               write_path: str,
-              theme_name: str):
+              theme_name: str,
+              backup = False):
+
     # TODO: don't hardcode save paths
     logger.info("starting to parse vimrc")
     vim_config = config.get('vim', {})
@@ -28,7 +30,7 @@ def parse_vim(config: Dict,
         logger.info("extra lines for vimrc:")
         for l in extra_lines:
             logger.info(l)
-        logger.ingo("end extra lines for vim")
+        logger.info("end extra lines for vim")
 
     # write to the tempfile
     with open("./defaults/vimrc.template", "r") as f_template,\
@@ -47,15 +49,17 @@ def parse_vim(config: Dict,
         shutil.copy(src=colors_path, dst=colors_dest)
         logger.info(f"copied colors script from {colors_path} to {colors_dest}")
 
-    with open("./tmp/.vimrc", "a") as f:
-        line = f"colorscheme {colorscheme}"
-        f.write(line)
-        logger.info(f"wrote {line} to .vimrc")
+    # with open("./tmp/.vimrc", "a") as f:
+    #     # find the line starting with colorscheme
+    #     line = f"colorscheme {colorscheme}"
+    #     f.write(line)
+    #     logger.info(f"wrote {line} to .vimrc")
 
     # write to file
     shutil.copy(src="./tmp/.vimrc", dst=os.path.expanduser("~/.vimrc"))
     logger.info("wrote vimrc to file")
     return config
+
 def write_tempfile(f_template: IO,
                    f_temp: IO,
                    colors: str,
@@ -71,7 +75,10 @@ def write_tempfile(f_template: IO,
             for p in plugs:
                 f_temp.write(p)
 
-        # write normal line
-        f_temp.write(line)
+        if len(line) >= len('colorscheme') and line[:len('colorscheme')] == 'colorscheme':
+            f_temp.write(f'colorscheme {colorscheme}')
+        else:
+            # write normal line
+            f_temp.write(line)
 
-    # 
+

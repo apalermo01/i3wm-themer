@@ -3,14 +3,20 @@ import os
 import shutil
 from typing import Dict
 from textwrap import dedent
-
+from i3wmthemer.utils.common import get_timestamp
 
 logger = logging.getLogger(__name__)
 
 
 def parse_bash(config: Dict,
                write_path: str,
-               theme_name: str):
+               theme_name: str,
+               backup: bool = False):
+
+    if backup:
+        bash_path = os.path.expanduser("~/")
+        fname = f".bashrc_backup_{get_timestamp()}"
+        shutil.copy2(src=os.path.join(bash_path, ".bashrc"), dst=os.path.join(bash_path, fname))
 
     # TODO: don't hardcode paths
     bash_config = config['bash']

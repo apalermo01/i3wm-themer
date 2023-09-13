@@ -8,7 +8,8 @@ logger = logging.getLogger(__name__)
 
 def parse_picom(config: Dict,
                 write_path: str,
-                theme_name: str):
+                theme_name: str,
+                backup = False):
 
     # kill picom if it's already running
     subprocess.run(['killall', 'picom'])
