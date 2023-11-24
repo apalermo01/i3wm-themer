@@ -16,6 +16,7 @@ def parse_vim(config: Dict,
 
     colors = vim_config.get('colors', 'gruvbox')
     colorscheme = vim_config.get('colorscheme', 'gruvbox')
+    airline_theme  = vim_config.get('airline_theme', 'dark')
     plugs = vim_config.get('plugs', [])
     extra_lines = vim_config.get('extra_lines', [])
 
@@ -49,11 +50,6 @@ def parse_vim(config: Dict,
         shutil.copy(src=colors_path, dst=colors_dest)
         logger.info(f"copied colors script from {colors_path} to {colors_dest}")
 
-    # with open("./tmp/.vimrc", "a") as f:
-    #     # find the line starting with colorscheme
-    #     line = f"colorscheme {colorscheme}"
-    #     f.write(line)
-    #     logger.info(f"wrote {line} to .vimrc")
 
     # write to file
     shutil.copy(src="./tmp/.vimrc", dst=os.path.expanduser("~/.vimrc"))

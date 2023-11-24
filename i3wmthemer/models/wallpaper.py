@@ -9,7 +9,13 @@ logger = logging.getLogger(__name__)
 
 
 def parse_wallpaper(config: Dict, *args, **kwargs):
+    """Parse wallpaper info
 
+    Parameters
+    ----------
+    config : Dict
+
+    """
     if isinstance(config['wallpaper'], str):
         name = config['wallpaper']
         config['wallpaper'] = {

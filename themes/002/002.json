@@ -34,7 +34,9 @@
     "focused_inactive": "#bfbfbf #162025 #bfbfbf #75404b #75404b",
     "urgent": "#bfbfbf #162025 #bfbfbf #75404b #75404b",
     "placeholder": "#bfbfbf #162025 #bfbfbf #75404b #75404b"
-	}
+	},
+  "extra_lines": [
+			"exec bash ~/left_ext_monitor.sh"]
   },
   "polybar": {
 	"bar/main":{
@@ -66,7 +68,8 @@
 	}
   },
   "bash": {
-	  "pywal_colors": true
+	  "pywal_colors": true,
+	  "extra_lines": ["neofetch"]
   },
   "wallpaper": "002.png"
 }

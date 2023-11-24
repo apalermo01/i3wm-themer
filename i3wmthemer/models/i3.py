@@ -34,6 +34,17 @@ def parse_i3theme(config: Dict,
     :param write_path: path that we should write the final output to
     :param theme_name: name of the current theme
     :param default_path: path to the default file
+
+    Flow:
+    1) loads key mappings from defaults
+    2) loads base settings from defaults
+    3) fills in colors
+    4) configures terminal settings (e.g. default terminal, sets key command to open terminal
+    5) adding bindsyms
+    6) adds a list of extra lines found in the
+
+    Each function writes to / modifies a file in a temp directory. Once everything is
+    finished, that temp file is moved to the actual config file
     """
     # initialize tmep file
     if backup:

@@ -36,12 +36,11 @@ Personal collection of themes and scripts for <a href="https://www.i3wm.org">i3w
 <ul>
 Clone this repository and install the requirements for the script. For Debian users, check the "Debian" section below.
 
-    git clone https://github.com/unix121/i3wm-themer
+    git clone https://github.com/apalermo/i3wm-themer
     cd i3wm-themer/
     sudo pip install -r requirements.txt
 
-Install all the requirements from the 'What you will need' section.
-Either manually or use one of the scripts created for some distros:
+The original repo had install scripts for arch, debian, and ubuntu. Thus far, I've only updated the ubuntu install script.
 
     # For Arch, ArchLabs or Manjaro Linux
     ./install_arch.sh
@@ -54,19 +53,7 @@ Either manually or use one of the scripts created for some distros:
 
 If you are not on one of the above, install them using your Package manager.
 
-Make sure you have the requirements mentioned earlier installed.
-Edit the <a href="defaults/config.yaml">config.yaml</a> file and add your full path of i3wm config, polybar config and .Xresources
-files. In the end it should look something like this:
 
-    i3-config: /home/[USER]/.i3/config
-    polybar-config: /home/[USER]/.config/polybar/config
-    xresources: /home/[USER]/.Xresources
-
-Where `[USER]` is your `$USER`.
-
-
-**NOTE: the steps  below are from the original repo. In my version the following steps should be done automatically**
-Copy the script in the <a href="scripts/">scripts</a> folder to your polybar directory:
 
     cp -r scripts/* /home/$USER/.config/polybar/
 

@@ -34,8 +34,10 @@
     "focused_inactive": "#EAD49B #1E272B #EAD49B #78824B #78824B",
     "urgent": "#EAD49B #1E272B #EAD49B #78824B #78824B",
     "placeholder": "#EAD49B #1E272B #EAD49B #78824B #78824B"
-  }},
-
+  },
+  "extra_lines": [
+			"exec bash ~/left_ext_monitor.sh"]
+  },
   "polybar": {
 	 "bar/main":{
     "modules-left": "xworkspaces",

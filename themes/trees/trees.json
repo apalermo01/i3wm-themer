@@ -13,7 +13,8 @@
 		"extra_lines": [
 			"# class     border backgr. text indicator child_border",
 			"# history: first col was back the all fores",
-			"# focused.background was color6"
+			"# focused.background was color6",
+			"exec bash ~/left_ext_monitor.sh"  
 		],
 		"colors": {
 			"background": ["#00ffff"],

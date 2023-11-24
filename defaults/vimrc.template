@@ -41,12 +41,12 @@ Plug 'nocksock/python-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'rafi/awesome-vim-colorschemes'
+Plug 'rafi/awesome-vim-colorschemes'
 "Plug 'itchyny/lightline.vim'
 call plug#end()
 let mapleader = "," 
@@ -101,7 +101,7 @@ set smartcase
 set hlsearch
 
 " make <Esc> clear search highlights
-nnoremap <silent> <ESC> <ESC>:nohlsearch<CR><Esc>
+nnoremap <silent> <esc> <ESC>:nohlsearch<CR><Esc>
 
 " make search act like search in modern browsers
 set incsearch
@@ -232,6 +232,10 @@ map 0 ^
 nmap <leader>w :w!<cr>
 nmap <leader>q :q!<cr>
 
+" clear highlight on pressing ESC
+" nnoremap <esc> :noh<return><esc>
+
+
 " Delete trailing white space on save, useful for some filetypes ;)
 " fun! CleanExtraSpaces()
 "     let save_cursor = getpos(".")
@@ -244,6 +248,7 @@ nmap <leader>q :q!<cr>
 " if has("autocmd")
 "     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 " endif
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " spell checking
@@ -282,20 +287,20 @@ nnoremap <C-f> :NERDTreeFind<CR>
 " no select by `"suggest.noselect": true` in your configuration file
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ coc#pum#visible() ? coc#pum#next(1) :
+"       \ CheckBackspace() ? "\<Tab>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" function! CheckBackspace() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helper functions

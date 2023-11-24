@@ -46,9 +46,12 @@ def main():
     args = parse_args()
     theme_name = args.theme
     path = f"./themes/{theme_name}/{theme_name}.json"
+
     with open(path, "r") as f:
         config = json.load(f)
+
     backup = False
+
     for key in order:
         if key in config:
             logger.info(f"parsing {key}")
@@ -57,19 +60,6 @@ def main():
                     write_path=path_config[key],
                     theme_name=theme_name,
                     backup=backup)
-
-    # config = colors.parse_colors(config, None, None)
-    # wallpaper.parse_wallpaper(config, None, None)
-    # i3.parse_i3theme(config=config,
-    #                 write_path=os.path.expanduser("~/.config/i3/config"),
-    #                 theme_name = theme_name)
-    # polybar.parse_polybar(config,
-    #                       write_path=os.path.expanduser("~/.config/polybar/config.ini"),
-    #                       theme_name=theme_name)
-    # vim.parse_vim(config=config, write_path=os.path.expanduser("~/.vimrc"), theme_name=theme_name)
-    # if 'bash' in config:
-    #     bash.parse_bash(config=config, write_path=os.path.expanduser("~/.bashrc"), theme_name = None)
-    # picom.parse_picom(config=config, write_path = os.path.expanduser("~/.config/picom.conf"), theme_name=theme_name)
 
 if __name__ == '__main__':
     main()
