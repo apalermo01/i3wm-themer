@@ -10,7 +10,6 @@ def parse_vim(config: Dict,
               theme_name: str,
               backup = False):
 
-    # TODO: don't hardcode save paths
     logger.info("starting to parse vimrc")
     vim_config = config.get('vim', {})
 
@@ -27,6 +26,7 @@ def parse_vim(config: Dict,
         for p in plugs:
             logger.info(p)
         logger.info("end vim plugs")
+
     if len(extra_lines) > 0:
         logger.info("extra lines for vimrc:")
         for l in extra_lines:
@@ -41,18 +41,24 @@ def parse_vim(config: Dict,
                        f_temp,
                        colors,
                        colorscheme,
+                       airline_theme,
                        plugs,
                        extra_lines)
     # handle colors
     if colors != 'gruvbox':
         colors_path = f"./themes/{theme_name}/{colors}"
-        colors_dest = os.path.expanduser(f"~/.vim/colors/{colors}")
+
+        if 'vim' not in write_path:
+            colors_dest = os.path.expanduser(f"~/.vim/colors/{colors}")
+        else:
+            colors_dest = os.path.expanduser(f"~/.config/nvim/colors/{colors}")
         shutil.copy(src=colors_path, dst=colors_dest)
         logger.info(f"copied colors script from {colors_path} to {colors_dest}")
 
 
     # write to file
-    shutil.copy(src="./tmp/.vimrc", dst=os.path.expanduser("~/.vimrc"))
+    # shutil.copy(src="./tmp/.vimrc", dst=os.path.expanduser("~/.vimrc"))
+    shutil.copy(src="./tmp/.vimrc", dst=write_path)
     logger.info("wrote vimrc to file")
     return config
 
@@ -60,6 +66,7 @@ def write_tempfile(f_template: IO,
                    f_temp: IO,
                    colors: str,
                    colorscheme: str,
+                   airline_theme: str,
                    plugs: List,
                    extra_lines: List):
 
@@ -68,11 +75,14 @@ def write_tempfile(f_template: IO,
 
         # check if we're in the plug section
         if "call plug#begin(" in line:
+            f_temp.write(line)
             for p in plugs:
-                f_temp.write(p)
+                f_temp.write(f"Plug '{p}'\n")
 
-        if len(line) >= len('colorscheme') and line[:len('colorscheme')] == 'colorscheme':
-            f_temp.write(f'colorscheme {colorscheme}')
+        elif len(line) >= len('colorscheme') and line[:len('colorscheme')] == 'colorscheme':
+            f_temp.write(f'colorscheme {colorscheme}\n')
+        elif len(line) >= len('let g:airline_theme=') and line[:len('let g:airline_theme=')] == 'let g:airline_theme=':
+            f_temp.write(f'let g:airline_theme="{airline_theme}"\n')
         else:
             # write normal line
             f_temp.write(line)

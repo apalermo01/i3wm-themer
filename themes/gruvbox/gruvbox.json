@@ -12,10 +12,10 @@
 		"colors": {
 			"background": ["background"],
 			"focused": ["foreground", "background", "foreground", "color12", "color12"],
-			"unfocused": ["foreground", "background", "foreground", "color4", "color4"],
-			"focused_inactive": ["foreground", "background", "foreground", "color4", "color4"],
-			"urgent": ["foreground", "background", "foreground", "color4", "color4"],
-			"placeholder": ["foreground", "background", "foreground", "color4", "color4"]
+			"unfocused": ["foreground", "background", "foreground", "color1", "color1"],
+			"focused_inactive": ["foreground", "background", "foreground", "color1", "color1"],
+			"urgent": ["foreground", "background", "foreground", "color9", "color9"],
+			"placeholder": ["foreground", "background", "foreground", "color1", "color1"]
 		},
 
 		"bindsyms": {
@@ -34,8 +34,9 @@
 	},
 	
 
-	"vimrc": {
-		"colorscheme": "gruvbox"
+	"vim": {
+		"colorscheme": "gruvbox",
+		"airline_theme": "base16"
 	},
 	"wallpaper":  "gruvbox-tux.png"
 }

@@ -33,6 +33,7 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'sainnhe/everforest'
 Plug 'dylanaraps/wal.vim'
 Plug 'preservim/nerdtree'
 Plug 'victor-iyi/commentary.vim'
@@ -145,7 +146,8 @@ set background=dark
 " colorscheme options:
 " gruvbox, blue_in_green
 " options listed here: https://github.com/rafi/awesome-vim-colorschemes
-colorscheme blue_in_green
+colorscheme everforest
+
 set encoding=utf8
 
 
@@ -211,12 +213,12 @@ set laststatus=2
 " Format the status line
 " set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 " set statusline=\test \ \ Line:\ %l \ Column:\ %c
-let g:airline_left_sep=''
-let g:airline_right_sep=''
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_spell=1
-let g:airline_theme='dark'
+let g:airline_theme="dark"
 let g:airline_powerline_fonts=1
 " set statusline=helloworld
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -269,13 +271,13 @@ nnoremap <C-f> :NERDTreeFind<CR>
 
 " let g:NERDTreeWinPos = "left"
 " let NERDTreeShowHidden = 0
-" let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 " let g:NERDTreeWinSize=35
 
 """""""""""""""""""""""""""""""""""
-" let g:python_highlight_all = 1
-" let g:mkdp_command_for_global = 1
-" let g:mkdp_auto_start = 0
+let g:python_highlight_all = 1
+let g:mkdp_command_for_global = 1
+let g:mkdp_auto_start = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc
@@ -292,14 +294,14 @@ nnoremap <C-f> :NERDTreeFind<CR>
 "       \ coc#refresh()
 " inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Make <CR> to accept selected completion item or notify coc.nvim to format
+"Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 " inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" function! CheckBackspace() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
+ "                            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helper functions
@@ -326,7 +328,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " python 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let python_highlight_all = 1
+let python_highlight_all = 1
 " au FileType python syn keyword pythonDecorator True None False self
 " 
 " au BufNewFile,BufRead *.jinja set syntax=htmljinja

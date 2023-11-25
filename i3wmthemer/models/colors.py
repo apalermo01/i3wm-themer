@@ -44,6 +44,10 @@ def parse_colors(#template: Dict,
             config['colors']['settings']['color_mode'] == 'pywal'):
 
         wallpaper_path = config['wallpaper']
+        if 'wallpapers' not in wallpaper_path:
+            logger.warning(f"{wallpaper_path} does not look like a full path. Changing to ./wallpapers/{wallpaper_path}")
+            wallpaper_path = f"./wallpapers/{wallpaper_path}"
+        logger.info(f"loading wallpaper from {wallpaper_path}")
         pallet = configure_pywal_colors(wallpaper_path)
         logger.debug(f"pallet derived from pywal")
         config['colors']['pallet'] = pallet

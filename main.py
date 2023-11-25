@@ -19,7 +19,8 @@ path_config = {
         'wallpaper': None,
         'i3wm': os.path.expanduser("~/.config/i3/config"),
         'polybar': os.path.expanduser("~/.config/polybar/config.ini"),
-        'vim': os.path.expanduser("~/.vimrc"),
+        #'vim': os.path.expanduser("~/.vimrc"),
+        'vim': os.path.expanduser("~/.config/nvim/init.vim"),
         'bash': os.path.expanduser("~/.bashrc"),
         'picom': os.path.expanduser("~/.config/picom.conf"),
         }
